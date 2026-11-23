@@ -220,7 +220,8 @@ section{position:relative}
 .card.cta-card{justify-content:center;align-items:flex-start;border-style:dashed;background:transparent;min-height:280px}
 .card.cta-card h4{font:700 clamp(26px,3vw,38px)/1.05 Tektur,sans-serif;text-transform:uppercase}
 .card.cta-card p{color:var(--mut);margin:0;max-width:34ch}
-@media(max-width:760px){.cards{grid-template-columns:minmax(0,1fr)}.cvr{aspect-ratio:auto;min-height:220px;gap:16px}.cvr .cl{gap:6px}}
+@media(max-width:760px){.cards{grid-template-columns:minmax(0,1fr)}.cvr{aspect-ratio:auto;min-height:0;gap:12px;justify-content:flex-start}.cvr .cl{gap:6px}}
+@media(max-width:560px){.cvr>*:not(.vx){max-width:none}.cvr .vx{position:relative;right:auto;top:auto;order:1;width:100%;height:150px;margin:2px 0 4px}.cvr .tg{order:0}.cvr .cm{order:2}.cvr .cl{order:3}.cvr .cm b.ph{font-size:22px}}
 
 /* modal */
 dialog{border:0;padding:0;background:transparent;max-width:min(860px,94vw);width:100%;color:var(--ink)}
@@ -336,7 +337,7 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
 .xrow ul{margin:0 0 22px 70px;padding-left:18px;color:color-mix(in srgb,var(--ink) 80%,transparent);max-width:78ch}
 .xrow li{margin:7px 0}
 .xrow li b{color:var(--ink)}
-@media(max-width:640px){.xrow summary{grid-template-columns:40px minmax(0,1fr) 22px;gap:12px}.xrow summary .lg{width:40px;height:40px}.xrow .r{font-size:17px}.xrow .dt{grid-column:2;grid-row:2}.xrow .pl{grid-row:1/3;grid-column:3}.xrow ul{margin-left:0}}
+@media(max-width:640px){.xrow summary{grid-template-columns:40px minmax(0,1fr) 22px;gap:4px 12px;align-items:start}.xrow summary .lg{grid-row:1/3;margin-top:2px}.xrow .pl{margin-top:8px}.xrow summary .lg{width:40px;height:40px}.xrow .r{font-size:17px}.xrow .dt{grid-column:2;grid-row:2}.xrow .pl{grid-row:1/3;grid-column:3}.xrow ul{margin-left:0}}
 
 /* education */
 .edu{margin-top:44px;border:1px solid var(--line);background:var(--card);padding:clamp(20px,3vw,34px);display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(20px,4vw,48px);align-items:stretch}
@@ -730,7 +731,7 @@ const words=['Growth operator','Marketer','Analyst','Founder','Partnerships lead
 const rot=$('#rot');let wi=0;const glyph='ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*+=<>/';
 function scramble(to){if(RM){rot.textContent=to;return}let f=0;const len=Math.max(rot.textContent.length,to.length);
   const id=setInterval(()=>{let s='';for(let i=0;i<len;i++){const done=f>i*1.6+4;s+=done?(to[i]||''):(to[i]===' '?' ':glyph[Math.random()*glyph.length|0])}rot.textContent=s;f++;if(f>len*1.6+6){clearInterval(id);rot.textContent=to}},34)}
-setInterval(()=>{if(heroOn&&!document.hidden){wi=(wi+1)%words.length;scramble(words[wi])}},2800);
+setInterval(()=>{if(heroOn&&!document.hidden){wi=(wi+1)%words.length;scramble(words[wi])}},2000);
 const OK=[['cocacola',13,30,0,-6],['netflix',5,44,1,5],['fanta',23,44,0,-4],['thumsup',11,59,1,6],['allen',25,62,1,-5],['sprite',6,76,1,4],['charged',19,80,0,-3],
           ['visa',84,29,0,5],['hackerrank',95,44,1,-5],['acko',76,44,0,4],['campa',89,59,1,-6],['kimi',75,63,1,6],['openai',94,76,1,-4],['swiggy',86,85,0,5],['emergent',95,27,1,-4]];
 /* hero badges: brand colour background, logo on top */
@@ -943,7 +944,7 @@ const W=[
  {id:'fest',t:'Under25 Universe',k:'u25',sub:'Brand partnerships & sponsorships',c:['growth'],cv:['Sponsorships','30,000','+','attendees at one festival; on-ground activations for 5 sponsors.',['netflix','groww','hero','sleepyowl']],
   m:{role:'Brand Partnerships & Sponsorships Intern',when:'Jan 2023 – Mar 2023',ctx:'One of the largest student festivals in the city, run like a launch.',imp:[['30,000+','attendees'],['5','sponsors activated'],['City-wide','ticket push through student networks']],did:['Managed on-ground activations for Netflix, Groww and Hero MotoCorp.','Executed brand segments for Sleepy Owl Coffee and Cava with logistics and vendor teams, within brand guidelines.','Drove ticket sales through student networks and influencer-led promotion loops.'],brands:['netflix','groww','hero','sleepyowl','Cava']}},
  {id:'ecell',t:'E-Cell, Sir MVIT',k:'ecell',sub:'Director & head of corporate relations',c:['founder'],cv:['Corporate relations','9','','incubated startups mentored, with partners like Red Bull and StockGro.',['redbull','stockgro']],
-  m:{role:'Director & Head of Corporate Relations',when:'2022 – 2026',ctx:"Running the college's startup engine alongside an engineering degree in electronics & communication.",imp:[['9','incubated startups tracked'],['3+','corporate partners']],did:['Secured partnerships with Red Bull, StockGro and others by aligning their CSR goals with E-Cell incubation.','Tracked milestones for 9 incubated startups, unblocked operations and connected founders to VC networks.'],brands:['redbull','stockgro']}}
+  m:{role:'Director & Head of Corporate Relations',when:'2022 – 2026',ctx:"Running the college's startup engine alongside an engineering degree in electronics & communication.",imp:[['9','incubated startups tracked'],['2x','NEC finalist, IIT Bombay'],['3+','corporate partners']],did:['Secured partnerships with Red Bull, StockGro and others by aligning their CSR goals with E-Cell incubation.','Tracked milestones for 9 incubated startups, unblocked operations and connected founders to VC networks.','2x Finalist at the National Entrepreneurship Challenge hosted by IIT Bombay (2024 &amp; 2025).'],brands:['redbull','stockgro']}}
 ];
 const ex='<span class="ex"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></span>';
 const cv=w=>cover(w.id,w.cv[0],w.cv[4]);
@@ -980,7 +981,7 @@ const TW=[
  {k:'raahe',l:'RAAHE',x:1,y:3,h:5,lg:'raahe',tag:'Dec 2024 – now',title:'Raahe',body:'Co-founded. ~₹30L revenue, ₹27L+ paid to artists and the #1 open mic on Zomato District in Bengaluru.'},
  {k:'qviq',l:'QVIQ',x:3,y:1,h:2,lg:'qviq',tag:'Nov 2024 – Jan 2025',title:"Qviq · Founder's Office",body:'1,500+ creators and brands pitched, 350+ converted. Roughly a 23% conversion rate.'},
  {k:'fest',l:'U25 FEST',x:1,y:1,h:2,lg:'u25',tag:'Jan – Mar 2023',title:'Under25 Universe',body:'Sponsor activations for Netflix, Groww and Hero MotoCorp at a 30,000+ attendee festival.'},
- {k:'ecell',l:'E-CELL',x:5,y:5,h:3,lg:'ecell',tag:'2022 – 2026',title:'E-Cell, Sir MVIT',body:'Director & head of corporate relations. Partnerships with Red Bull, StockGro and others; 9 startups mentored.'},
+ {k:'ecell',l:'E-CELL',x:5,y:5,h:3,lg:'ecell',tag:'2022 – 2026',title:'E-Cell, Sir MVIT',body:'Director & head of corporate relations. Partnerships with Red Bull, StockGro and others; 9 startups mentored; 2x finalist at IIT Bombay\'s National Entrepreneurship Challenge.'},
  {k:'code',l:'CODE',x:5,y:1,h:3,cls:'code',lg:'built',tag:'Always on',title:'Builds',body:'10+ AI-powered tools and platforms: Nova, DeepField, Woops, Creator Scout, Quick Search and more.'},
  {k:'school',l:'ECE',x:1,y:5,h:1,tag:'2022 – 2026',title:'B.E., Electronics & Communication',body:'Sir M Visvesvaraya Institute of Technology (VTU). Where the engineering habit started.'}
 ];
@@ -1014,7 +1015,7 @@ const XP=[
  {k:'raahe',r:'Co-founder',c:'Raahe · offline artist community',d:'Dec 2024 – Present',b:['Bootstrapped Bengaluru’s largest offline artist community to <b>~₹30L in revenue</b> while in college.','Managed alliances with <b>25+ venue partners</b> and owned the <b>end-to-end P&amp;L</b>.','Took the Raahe Open Mic to <b>#1 on Zomato District</b> for Bengaluru.']},
  {k:'qviq',r:"Founder's Office · Business Development Intern",c:'Qviq.io',d:'Nov 2024 – Jan 2025',b:['Pitched <b>1,500+ creators and brands</b>; converted <b>350+ accounts (~23%)</b> to Qviqsites and NFC smart cards.','Owned onboarding and relationships for every new account.']},
  {k:'u25',r:'Brand Partnerships & Sponsorships Intern',c:'Under25 Universe',d:'Jan 2023 – Mar 2023',b:['On-ground activations for <b>Netflix, Groww and Hero MotoCorp</b> at a <b>30,000+ attendee</b> festival.','Brand segments for <b>Sleepy Owl Coffee and Cava</b>; ticket sales via student networks and influencer loops.']},
- {k:'ecell',r:'Director & Head of Corporate Relations',c:'Entrepreneurship Cell · Sir MVIT (VTU), B.E. Electronics & Communication',d:'Nov 2022 – May 2026',b:['Secured partnerships with <b>Red Bull, StockGro</b> and others.','Tracked milestones for <b>9 incubated startups</b> and connected founders to VC networks.']}
+ {k:'ecell',r:'Director & Head of Corporate Relations',c:'Entrepreneurship Cell · Sir MVIT (VTU), B.E. Electronics & Communication',d:'Nov 2022 – May 2026',b:['Secured partnerships with <b>Red Bull, StockGro</b> and others.','Tracked milestones for <b>9 incubated startups</b> and connected founders to VC networks.','<b>2x Finalist</b> at the <b>National Entrepreneurship Challenge</b> hosted by <b>IIT Bombay</b> (2024 &amp; 2025).']}
 ];
 $('#xp').innerHTML=`<p class="label" style="margin:30px 0 0;padding-bottom:4px">Experience, in detail</p>`+XP.map(x=>`<details class="xrow"${x.open?' open':''}><summary>${tile(x.k)}<div><div class="r">${x.r}</div><div class="c">${x.c}</div></div><span class="dt">${x.d}</span><span class="pl"></span></summary><ul>${x.b.map(i=>`<li>${i}</li>`).join('')}</ul></details>`).join('');
 
