@@ -218,6 +218,10 @@ section{position:relative}
 .cvr::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--red);transform:scaleX(.08);transform-origin:left;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .card:hover .cvr::after{transform:none}
 .cvr>*{position:relative}
+.cvr>*:not(.vx){max-width:50%}
+.cvr .vx{position:absolute;right:2%;top:7%;height:86%;width:54%;transition:transform .6s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 18px 18px rgba(0,0,0,.45))}
+.card:hover .cvr .vx{transform:translateY(-6px) scale(1.04)}
+.cvr .cm b.ph{display:block;font:700 clamp(20px,2.3vw,30px)/1.08 Tektur,sans-serif;text-transform:uppercase;letter-spacing:.01em;color:var(--ink);text-wrap:balance}
 .cvr .tg{font:600 11px/1 Tektur,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
 .cvr .cm b{display:block;font:700 clamp(40px,6vw,76px)/.95 Tektur,sans-serif;letter-spacing:-.01em;color:var(--ink)}
 .cvr .cm b em{font-style:normal;color:var(--red)}
@@ -856,8 +860,94 @@ swb.forEach((b,i)=>b.addEventListener('click',()=>openSide(i)));
 /* ---------- YAAS tools flow ---------- */
 
 /* ---------- work ---------- */
+/* voxel illustrations for work covers: isometric boxes drawn as SVG */
+const VX=(()=>{
+const C={
+ red:['#ff6b5e','#EE3B3B','#b52a2a'], cream:['#FBF5EA','#E6DCC8','#C2B6A0'], dark:['#4a4a4a','#333','#232323'],
+ ink:['#2c2c2c','#1f1f1f','#151515'], pink:['#ff7dbb','#F0509A','#b8336f'], violet:['#9f7cff','#7B55E0','#5232b0'],
+ blue:['#8fd0ff','#4aa8ff','#2a6fc0'], yellow:['#FFE45C','#FFD400','#c9a300'], green:['#6be39a','#2fbf71','#1f8a50'],
+ grey:['#8a8a8a','#6b6b6b','#4f4f4f'], orange:['#ffb15c','#FC8019','#c45f0b']
+};
+const P=(x,y,z)=>[(x-y)*0.866,(x+y)*0.5-z];
+const pts=a=>a.map(p=>p.map(v=>v.toFixed(2)).join(',')).join(' ');
+/* b(x,y,z,w,d,h,color) */
+function box([x,y,z,w,d,h,c,o]){const s=typeof c==='string'?C[c]:c;
+  const T=[P(x,y,z+h),P(x+w,y,z+h),P(x+w,y+d,z+h),P(x,y+d,z+h)],
+        L=[P(x,y+d,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x,y+d,z+h)],
+        R=[P(x+w,y,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x+w,y,z+h)];
+  const st='stroke="#111" stroke-width=".06" stroke-linejoin="round"';
+  return {k:x+y+z*1.001,pts:[...T,...L,...R],svg:`<g${o?` opacity="${o}"`:''}><polygon points="${pts(L)}" fill="${s[1]}" ${st}/><polygon points="${pts(R)}" fill="${s[2]}" ${st}/><polygon points="${pts(T)}" fill="${s[0]}" ${st}/></g>`}}
+/* decal on a face: face 'L' (y=const plane, u along x, v along z), 'R' (x=const, u along y, v along z), 'T' (z=const, u along x, v along y) */
+function face(f,o,u,v){return f==='L'?P(u,o,v):f==='R'?P(o,u,v):P(u,v,o)}
+function poly(f,o,list,fill,extra=''){return {k:1e9,pts:[],svg:`<polygon points="${pts(list.map(([u,v])=>face(f,o,u,v)))}" fill="${fill}" ${extra}/>`}}
+function line(f,o,list,stroke,w=.18,extra=''){return {k:1e9,pts:[],svg:`<polyline points="${pts(list.map(([u,v])=>face(f,o,u,v)))}" fill="none" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`}}
+function raw(svg,k=1e9){return {k,pts:[],svg}}
+function render(items,cls=''){
+  const boxes=items.filter(i=>i.k<1e8).sort((a,b)=>a.k-b.k),over=items.filter(i=>i.k>=1e8);
+  const all=boxes.flatMap(b=>b.pts);let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;all.forEach(([x,y])=>{x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y)});
+  const pad=.6;return `<svg class="vx ${cls}" viewBox="${(x0-pad).toFixed(2)} ${(y0-pad).toFixed(2)} ${(x1-x0+2*pad).toFixed(2)} ${(y1-y0+2*pad).toFixed(2)}" aria-hidden="true">${boxes.map(b=>b.svg).join('')}${over.map(b=>b.svg).join('')}</svg>`}
+const b=(...a)=>box(a);
+/* a little voxel person */
+const person=(x,y,c='cream',z=0,hc='cream')=>[b(x,y,z,.7,.7,1.1,c),b(x+.12,y+.12,z+1.1,.46,.46,.46,hc)];
+const arc=(f,o,cu,cv,r,a0,a1,stroke,w=.18,extra='')=>{const p=[];for(let i=0;i<=16;i++){const a=(a0+(a1-a0)*i/16)*Math.PI/180;p.push([cu+r*Math.cos(a),cv+r*Math.sin(a)])}return line(f,o,p,stroke,w,extra)};
+const S={
+ raahe:()=>[ b(0,0,0,7,4.6,.9,'dark'), b(0,0,.9,7,4.6,.12,'pink'),
+   b(.4,.4,1.02,1.1,1.1,1.9,'ink'), b(5.5,.4,1.02,1.1,1.1,1.9,'ink'),
+   b(3.3,2.2,1.02,.25,.25,2.6,'grey'), b(3.05,1.95,3.6,.75,.75,.75,'cream'),
+   ...person(1.7,3,'violet',1.02), ...person(4.7,3.1,'red',1.02),
+   raw(`<polygon points="${pts([P(3.2,-2,10),P(3.9,-2,10),P(4.4,3.4,1.02),P(2.6,3.4,1.02)])}" fill="#fff" opacity=".1"/>`,0)],
+ campaigns:()=>[ b(0,0,0,3.2,.45,5.8,'ink'),
+   poly('L',.45,[[.25,.35],[2.95,.35],[2.95,5.45],[.25,5.45]],'#EE3B3B'),
+   poly('L',.45,[[1.25,2.2],[1.25,3.6],[2.25,2.9]],'#fff'),
+   b(4.2,-.2,0,.9,.9,1.3,'cream'), b(5.4,-.2,0,.9,.9,2.4,'cream'), b(6.6,-.2,0,.9,.9,3.7,'red'),
+   b(1.1,-1.4,6.4,.55,.55,.55,'pink'), b(2.6,-2.2,5.6,.4,.4,.4,'red'), b(-.4,-1.2,7,.4,.4,.4,'cream')],
+ deals:()=>[ b(0,0,0,4.4,3.2,.18,'cream'),
+   line('T',.18,[[.6,.7],[3.2,.7]],'#9a8f7c',.16), line('T',.18,[[.6,1.25],[3.6,1.25]],'#9a8f7c',.16), line('T',.18,[[.6,1.8],[2.6,1.8]],'#9a8f7c',.16),
+   line('T',.18,[[2.4,2.55],[2.9,2.2],[3.2,2.6],[3.7,2.25]],'#EE3B3B',.2),
+   ...[0,1,2,3,4].map(i=>b(5.2,.6,i*.38,1.5,1.5,.34,i%2?'yellow':['#FFE98A','#F4C430','#b58b10'])),
+   ...[0,1,2].map(i=>b(6.9,2.2,i*.38,1.5,1.5,.34,i%2?'yellow':['#FFE98A','#F4C430','#b58b10'])),
+   b(1.6,-1.6,2.4,1.3,1.3,1.3,'red'), line('R',2.9,[[-1.25,3.05],[-.85,2.75],[-.35,3.45]],'#fff',.2)],
+ under25:()=>[ b(0,0,0,6.6,4.4,.3,'dark'),
+   b(.3,.3,.3,2.6,.4,4.8,'ink'), poly('L',.7,[[.5,.65],[2.7,.65],[2.7,4.85],[.5,4.85]],'#FFC700'),
+   ...[[.7,3.7,'#111'],[1.7,3.7,'#EE3B3B'],[.7,2.7,'#7B55E0'],[1.7,2.7,'#111'],[.7,1.7,'#fff'],[1.7,1.7,'#EE3B3B']].map(([u,v,c])=>poly('L',.7,[[u,v],[u+.8,v],[u+.8,v+.8],[u,v+.8]],c)),
+   ...person(3.6,1.2,'red',.3),...person(4.8,2.2,'violet',.3),...person(3.6,3.1,'cream',.3),...person(5.4,.6,'blue',.3)],
+ qviq:()=>[ b(0,0,0,2.8,.4,5,'ink'), poly('L',.4,[[.22,.3],[2.58,.3],[2.58,4.7],[.22,4.7]],'#F2EADB'),
+   poly('L',.4,[[.9,3.3],[1.9,3.3],[1.9,4.2],[.9,4.2]],'#EE3B3B'), line('L',.4,[[.6,2.6],[2.2,2.6]],'#9a8f7c',.2), line('L',.4,[[.6,2],[1.9,2]],'#9a8f7c',.2),
+   poly('L',.4,[[.6,.7],[2.2,.7],[2.2,1.3],[.6,1.3]],'#111'),
+   ...[0,1,2].map(i=>arc('L',.4,3.1,2.6,.5+i*.5,-55,55,'#EE3B3B',.2,`opacity="${1-i*.28}"`)),
+   b(4.6,-.3,1,.22,2.8,1.9,'red'), poly('R',4.82,[[.1,2.5],[1,2.5],[1,2.75],[.1,2.75]],'#fff'), b(4.9,1.6,0,.1,.1,.1,'dark',0)],
+ scout:()=>[ b(0,0,0,6,.45,4.4,'cream'), b(0,0,4.4,6,.45,.55,'dark'),
+   ...[[.5,.4],[2.3,.4],[4.1,.4],[.5,2.1],[2.3,2.1],[4.1,2.1]].map(([u,v],i)=>poly('L',.45,[[u,v],[u+1.4,v],[u+1.4,v+1.4],[u,v+1.4]],['#F0509A','#2b2b2b','#4aa8ff','#2b2b2b','#FFD400','#7B55E0'][i])),
+   line('L',.45,[[2.3,2.1],[3.7,2.1],[3.7,3.5],[2.3,3.5],[2.3,2.1]],'#EE3B3B',.22),
+   b(2.6,1.6,0,1.1,1.1,1.1,'red'), b(4.2,2.4,0,.8,.8,.8,'cream')],
+ deepfield:()=>[ b(1,1,0,2.4,2.4,.6,'dark'), b(1.9,1.9,.6,.6,.6,3.2,'grey'), b(1.3,1.3,3.8,1.8,1.8,.3,'blue'), b(2,2,4.1,.4,.4,.8,'cream'),
+   ...[0,1,2].map(i=>arc('L',2.2,2.2,5.1,1.1+i*.7,20,160,'#4aa8ff',.2,`opacity="${1-i*.28}"`)),
+   b(4.6,-.6,1.8,3,.5,2,'cream'), poly('L',-.1,[[4.9,1.8],[5.5,1.8],[4.9,1.2]],'#E6DCC8'),
+   line('L',-.1,[[5.1,3.2],[7.2,3.2]],'#9a8f7c',.18), line('L',-.1,[[5.1,2.6],[6.6,2.6]],'#9a8f7c',.18)],
+ nova:()=>[ b(0,0,0,7,.3,4.6,'dark'),
+   ...[[.4,'#7B55E0'],[2.65,'#EE3B3B'],[4.9,'#F2EADB']].map(([u,c])=>poly('L',.3,[[u,4.0],[u+1.7,4.0],[u+1.7,4.2],[u,4.2]],c)),
+   b(.5,.3,2.9,1.5,.25,.8,'violet'), b(.5,.3,1.9,1.5,.25,.8,'violet'), b(.5,.3,.9,1.5,.25,.8,'cream'),
+   b(2.75,.3,2.9,1.5,.25,.8,'red'), b(2.75,.3,1.9,1.5,.25,.8,'cream'),
+   b(5,.3,2.9,1.5,.25,.8,'cream'), b(6.1,-.6,4.3,.9,.9,.9,'yellow'), line('R',7,[[-.35,4.6],[-.15,5.0]],'#111',.16)],
+ woops:()=>[ b(2.4,-1.6,1.8,4.2,.5,2.4,'red'), poly('L',-1.1,[[5.6,1.8],[6.4,1.8],[6.6,1]],'#EE3B3B'), b(0,0,0,4.8,.6,2.8,'cream'), poly('L',.6,[[.6,0],[1.6,0],[.5,-1]],'#E6DCC8'),
+   line('L',.6,[[.6,1.9],[3.6,1.9]],'#9a8f7c',.2), line('L',.6,[[.6,1.1],[2.8,1.1]],'#9a8f7c',.2),
+   b(4.4,1.2,0,1.6,1.6,1.6,'yellow'), poly('L',2.8,[[5.05,.75],[5.35,.75],[5.35,1.3],[5.05,1.3]],'#111'), poly('L',2.8,[[5.05,.3],[5.35,.3],[5.35,.55],[5.05,.55]],'#111')],
+ fest:()=>[ b(0,0,0,7.4,3,.6,'dark'), b(0,0,.6,.35,.35,4.2,'grey'), b(7.05,0,.6,.35,.35,4.2,'grey'), b(0,0,4.8,7.4,.35,.35,'grey'),
+   b(2.2,.4,.6,3,1.2,.8,'red'), ...person(3.3,.7,'cream',1.4),
+   ...person(1,4,'violet'),...person(2.4,4.4,'red'),...person(3.8,4,'cream'),...person(5.2,4.5,'blue'),...person(6.4,4,'pink'),
+   raw(`<polygon points="${pts([P(1,0,5),P(1.6,0,5),P(4,1,1.4),P(3,1.4,1.4)])}" fill="#FFD400" opacity=".22"/>`),
+   raw(`<polygon points="${pts([P(6,0,5),P(6.6,0,5),P(4.4,1.4,1.4),P(3.8,.8,1.4)])}" fill="#fff" opacity=".14"/>`)],
+ ecell:()=>[ b(0,0,0,4.6,4.6,.5,'dark'), b(1.6,1.6,.5,1.4,1.4,3.4,'cream'), b(1.85,1.85,3.9,.9,.9,.8,'red'), b(2.1,2.1,4.7,.4,.4,.5,'red'),
+   poly('L',3,[[1.95,2.4],[2.65,2.4],[2.65,3.1],[1.95,3.1]],'#4aa8ff'),
+   b(.9,2,.5,.7,.6,1.2,'red'), b(3,2,.5,.7,.6,1.2,'red'),
+   b(.4,3.6,.5,.6,.6,.6,'grey',.7), b(3.4,3.8,.5,.5,.5,.5,'grey',.6), b(2.2,4,.5,.4,.4,.4,'grey',.5), b(4.4,.4,2.8,.4,.4,.4,'yellow'), b(.2,.2,3.6,.3,.3,.3,'cream')]
+};
+return {scene:k=>S[k]?render(S[k]()):'' ,keys:Object.keys(S)};
+})();
+
 const plates=(ks,max=7)=>ks.slice(0,max).map(k=>B[k].pl||B[k].plp?plate(k):tile(k)).join('')+(ks.length>max?`<span class="more">+${ks.length-max}</span>`:'');
-const cover=(tag,big,suf,label,logos,word)=>`<div class="cvr"><div class="tg">${tag}</div><div class="cm"><b class="${word?'w':''}">${big}${suf?`<em>${suf}</em>`:''}</b><span>${label}</span></div><div class="cl">${plates(logos||[])}</div></div>`;
+const PH={raahe:'A stage for every new artist',campaigns:'Creators × brands, end to end',deals:'From cold pitch to signed deal',under25:'Events that bring an app to life',qviq:'One tap, one new account',deepfield:'Listen to the internet, then ask it',nova:'Every workspace on one board',scout:'Find the right creator, faster',woops:'Catch the wrong-chat message',fest:'A festival run like a launch',ecell:'Launching student startups'};
+const cover=(id,tag,logos)=>`<div class="cvr"><div class="tg">${tag}</div><div class="cm"><b class="ph">${PH[id]||''}</b></div><div class="cl">${plates(logos||[],4)}</div>${VX.scene(id)}</div>`;
 const W=[
  {id:'raahe',t:'Raahe',k:'raahe',live:1,sub:'Co-founder · artist community & live events',c:['founder','growth'],cv:['Founder','~₹30','L','revenue, bootstrapped in college. #1 open mic on Zomato District.',[]],jump:'#raahe'},
  {id:'campaigns',t:'Creator campaigns',k:'yaas',sub:'YAAS! Media · influencer marketing',c:['growth'],cv:['Influencer marketing','400','M+','views across creator-led campaigns for 15+ brands.',['cocacola','netflix','sprite','fanta','thumsup','charged','campa','acko','allen','hackerrank','aspora','vi','nothing','dietcoke']],
@@ -882,7 +972,7 @@ const W=[
   m:{role:'Director & Head of Corporate Relations',when:'2022 – 2026',ctx:"Running the college's startup engine alongside an engineering degree in electronics & communication.",imp:[['9','incubated startups tracked'],['3+','corporate partners']],did:['Secured partnerships with Red Bull, StockGro and others by aligning their CSR goals with E-Cell incubation.','Tracked milestones for 9 incubated startups, unblocked operations and connected founders to VC networks.'],brands:['redbull','stockgro']}}
 ];
 const ex='<span class="ex"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></span>';
-const cv=w=>cover(...w.cv.slice(0,5),w.cv[5]);
+const cv=w=>cover(w.id,w.cv[0],w.cv[4]);
 $('#cards').innerHTML=W.map(w=>`<button class="card reveal" data-id="${w.id}" data-c="${w.c.join(' ')}"><div class="hd">${tile(w.k)}<div><h4>${w.t}${w.live?'<span class="live">Live</span>':''}</h4><div class="sub">${w.sub}</div></div>${ex}</div>${cv(w)}</button>`).join('')+`<a class="card cta-card hide" href="#contact" data-c="cta"><span class="label" style="margin:0">Next case study</span><h4>Yours?</h4><p>Growth, partnerships or a founder's-office problem you want solved fast. I'd love to hear about it.</p><span class="btn">Get in touch <span class="ar">→</span></span></a>`;
 const F=[['growth','Growth','Campaigns, deals & partnerships','<path d="M4 18l6-6 4 4 6-8"/><path d="M15 8h5v5"/>'],['builds','Builds','Tools & products I shipped','<path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/>'],['founder','Founder mode','Things I started & ran','<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>']];
 $('#filters').innerHTML=F.map(([k,l,d,p],i)=>`<button role="tab" aria-selected="${!i}" class="${i?'':'on'}" data-f="${k}"><span class="fi"><svg viewBox="0 0 24 24">${p}</svg></span><span class="ft">${l}</span><span class="fd">${d}</span><span class="ct">${W.filter(w=>w.c.includes(k)).length}<small>projects</small></span></button>`).join('');
