@@ -66,7 +66,7 @@ img{display:block;max-width:100%}
 .ready .splash.back{animation:drift 7s ease-in-out 1.6s infinite alternate}
 .ready .splash.front{animation:drift 5s ease-in-out 1.6s infinite alternate-reverse}
 @keyframes drift{from{transform:translate(0,0) rotate(0)}to{transform:translate(0,-8px) rotate(.8deg)}}
-#orbits{position:absolute;inset:0;z-index:1}
+#orbits{position:absolute;inset:0;z-index:3;pointer-events:none}
 .orbit{position:absolute;left:var(--x);top:var(--y);opacity:0;transform:translate(-50%,-50%);transition:opacity .6s}
 .ready .orbit{opacity:1}
 .orbit .in{animation:bob var(--t,5s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
@@ -761,7 +761,7 @@ function scramble(to){if(RM){rot.textContent=to;return}let f=0;const len=Math.ma
   const id=setInterval(()=>{let s='';for(let i=0;i<len;i++){const done=f>i*1.6+4;s+=done?(to[i]||''):(to[i]===' '?' ':glyph[Math.random()*glyph.length|0])}rot.textContent=s;f++;if(f>len*1.6+6){clearInterval(id);rot.textContent=to}},34)}
 setInterval(()=>{if(heroOn&&!document.hidden){wi=(wi+1)%words.length;scramble(words[wi])}},2800);
 const OK=[['cocacola',13,30,0,-6],['netflix',5,44,1,5],['fanta',23,44,0,-4],['thumsup',11,59,1,6],['allen',25,62,1,-5],['sprite',6,76,1,4],['charged',19,80,0,-3],
-          ['visa',84,29,0,5],['hackerrank',95,44,1,-5],['acko',76,44,0,4],['campa',89,59,1,-6],['kimi',75,63,1,6],['openai',94,76,1,-4],['swiggy',81,80,0,5],['emergent',95,27,1,-4]];
+          ['visa',84,29,0,5],['hackerrank',95,44,1,-5],['acko',76,44,0,4],['campa',89,59,1,-6],['kimi',75,63,1,6],['openai',94,76,1,-4],['swiggy',86,85,0,5],['emergent',95,27,1,-4]];
 /* hero badges: brand colour background, logo on top */
 const HB={cocacola:['#E41E2B','w','cocacola.png',.4],netflix:['#000','i','netflix.png',.36],fanta:['#FF8A00','i','fanta.png',.74],thumsup:['#14306F','i','thumsup.png',.8],
  allen:['#0B4EA2','w','allen.png',.36],sprite:['#00843D','w','sprite.png',.44],charged:['#111','i','charged.png',.84],visa:['#1A1F71','p','#fff',.92],
