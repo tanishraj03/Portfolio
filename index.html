@@ -82,6 +82,8 @@ img{display:block;max-width:100%}
 @media(max-width:760px){.hb{--ph:40px}}
 @media(max-width:600px){.hero h1{font-size:min(9.2vw,44px)}}
 .hero.tight .orbit.hide{display:none}
+.orbit .in{transition:opacity .35s,scale .35s}
+.orbit .in.swap{opacity:0;scale:.7}
 @media(max-aspect-ratio:3/4){.hero{max-height:none}}
 
 /* logo tiles (square) */
@@ -106,6 +108,7 @@ img{display:block;max-width:100%}
 section{position:relative}
 .band{padding:var(--gap) 0}
 .band+.band:not(.raahe):not(.journey){padding-top:0}
+.journey+.band,.raahe+.band{padding-top:var(--gap)!important}
 
 /* currently */
 .now p.big{font-size:clamp(24px,3.2vw,42px);line-height:1.45;font-weight:600;margin:0;color:color-mix(in srgb,var(--ink) 78%,transparent);text-wrap:pretty}
@@ -156,7 +159,8 @@ section{position:relative}
 .side.open .more{max-height:460px;opacity:1}
 .side .peek{margin-top:18px;font:600 12px/1 Tektur,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
 .side.open .peek{display:none}
-@media(max-width:860px){.sides{flex-direction:column;min-height:0}.side .more{max-height:none;opacity:1}.side .peek{display:none}.side .proof{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){.sides{flex-direction:column;min-height:0}.side:not(.open){display:none}.side .more{max-height:none;opacity:1}.side .peek{display:none}.side .proof{grid-template-columns:repeat(3,minmax(0,1fr))}.switch{display:grid;grid-template-columns:1fr 1fr;width:100%}.switch button{text-align:center;padding:14px 8px}}
+@media(max-width:520px){.side .proof{gap:6px}.side .proof div{padding:10px}.side .proof b{font-size:18px}.side .proof span{font-size:12px;line-height:1.3;display:block;margin-top:6px}}
 @media(max-width:420px){.side .proof b{font-size:19px}}
 
 /* YAAS tools */
@@ -226,7 +230,7 @@ section{position:relative}
 .card.cta-card{justify-content:center;align-items:flex-start;border-style:dashed;background:transparent;min-height:280px}
 .card.cta-card h4{font:700 clamp(26px,3vw,38px)/1.05 Tektur,sans-serif;text-transform:uppercase}
 .card.cta-card p{color:var(--mut);margin:0;max-width:34ch}
-@media(max-width:760px){.cards{grid-template-columns:minmax(0,1fr)}.cvr{aspect-ratio:16/10}}
+@media(max-width:760px){.cards{grid-template-columns:minmax(0,1fr)}.cvr{aspect-ratio:auto;min-height:220px;gap:16px}.cvr .cl{gap:6px}}
 
 /* modal */
 dialog{border:0;padding:0;background:transparent;max-width:min(860px,94vw);width:100%;color:var(--ink)}
@@ -304,7 +308,7 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
 .base .s,.base .n{background:#1b1b1b}.base .e,.base .w{background:#141414}
 .tw{cursor:pointer}
 .tw .t{background:#3a3a3a;display:grid;place-items:center;outline:1px solid rgba(0,0,0,.35)}
-.tw .t b{font:700 9.5px/1 Tektur,sans-serif;letter-spacing:.06em;color:#0d0d0d;transform:rotate(-45deg);white-space:nowrap;opacity:.9}
+.tw .t b{font:700 var(--fs,9.5px)/1 Tektur,sans-serif;letter-spacing:.04em;color:#0d0d0d;transform:rotate(-45deg);white-space:nowrap;opacity:.9}
 .tw .s,.tw .n{background:#2b2b2b repeating-linear-gradient(to bottom,transparent 0 calc(var(--s) - 1px),rgba(0,0,0,.4) calc(var(--s) - 1px) var(--s))}
 .tw .e,.tw .w{background:#222 repeating-linear-gradient(to right,transparent 0 calc(var(--s) - 1px),rgba(0,0,0,.4) calc(var(--s) - 1px) var(--s))}
 .tw.hero-t .t{background:#e4e0d8}.tw.hero-t .s,.tw.hero-t .n{background-color:#c9c4ba}.tw.hero-t .e,.tw.hero-t .w{background-color:#b2ada3}
@@ -343,6 +347,24 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
 .xrow li{margin:7px 0}
 .xrow li b{color:var(--ink)}
 @media(max-width:640px){.xrow summary{grid-template-columns:40px minmax(0,1fr) 22px;gap:12px}.xrow summary .lg{width:40px;height:40px}.xrow .r{font-size:17px}.xrow .dt{grid-column:2;grid-row:2}.xrow .pl{grid-row:1/3;grid-column:3}.xrow ul{margin-left:0}}
+
+/* education */
+.edu{margin-top:44px;border:1px solid var(--line);background:var(--card);padding:clamp(20px,3vw,34px);display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(20px,4vw,48px);align-items:start}
+.edu .cap{width:52px;height:52px;background:var(--red);display:grid;place-items:center;margin-bottom:18px}
+.edu .cap svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.edu .label{margin-bottom:10px}
+.edu h3{margin:0;font:700 clamp(22px,2.4vw,30px)/1.1 Tektur,sans-serif;text-transform:uppercase}
+.edu .em{color:var(--mut);margin-top:10px;font-size:15.5px}
+.edu .note{color:color-mix(in srgb,var(--ink) 80%,transparent);margin:16px 0 0;font-size:16px;max-width:42ch}
+.ep{display:grid;gap:10px}
+.ep a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:18px 20px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
+.ep a:hover{border-color:var(--red);transform:translateY(-2px)}
+.ep .tg{font:600 11px/1 Tektur,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.ep b{font:700 17px/1.2 Tektur,sans-serif;text-transform:uppercase}
+.ep p{margin:0;color:var(--mut);font-size:14.5px}
+.ep .go{grid-column:2;grid-row:1/4;align-self:center;font:600 12px/1 Tektur,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;padding:10px 12px;border:1px solid var(--line);transition:.2s}
+.ep a:hover .go{background:var(--red);border-color:var(--red);color:#fff}
+@media(max-width:760px){.edu{grid-template-columns:minmax(0,1fr)}.ep a{grid-template-columns:minmax(0,1fr)}.ep .go{grid-column:1;grid-row:auto;justify-self:start;margin-top:6px}}
 
 /* toolkit */
 .kit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
@@ -554,6 +576,19 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
     </div>
     <div class="ihelp"><span>Hover or tap a tower</span><span>Drag to spin</span><span>← → to step</span><button id="rebuild">Press R to rebuild</button></div>
     <div class="xp" id="xp"></div>
+    <div class="edu reveal">
+      <div>
+        <div class="cap"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2.5 2 9.5 2 12 0v-5"/><path d="M22 9v6"/></svg></div>
+        <p class="label">Education</p>
+        <h3>B.E., Electronics &amp; Communication</h3>
+        <div class="em">Sir M Visvesvaraya Institute of Technology (VTU) · Nov 2022 – May 2026</div>
+        <p class="note">I'm an electronics engineer by training. That's where the habit of building things started; these were my engineering projects.</p>
+      </div>
+      <div class="ep">
+        <a href="https://drive.google.com/file/d/1WhkJm3vnN_Dm9L51I-d6EmXHKsIeekwZ/view" target="_blank" rel="noopener"><span class="tg">Capstone project · 2025</span><b>ADAS using CAN</b><p>A real-time driver assistance system in Python and OpenCV that reads the camera feed, spots obstacles and lane drift, and flags hazards.</p><span class="go">View project ↗</span></a>
+        <a href="https://drive.google.com/file/d/1oWxVeuPbxJFFdb-Rpb3FDbHFwaY1W5eL/view?usp=sharing" target="_blank" rel="noopener"><span class="tg">Engineering project · IoT</span><b>Dual battery management for EVs</b><p>A microcontroller system that monitors cell voltage, temperature and charge in real time, with safety logic that catches faults early.</p><span class="go">View project ↗</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -745,12 +780,17 @@ function layoutOrbits(){const H=parseFloat(pEl.style.height),hr=heroEl.getBoundi
   const h1b=h1El.getBoundingClientRect().bottom-hr.top,splashTop=heroEl.clientHeight-H*1.075;
   const tight=W/2-0.6*H<170;heroEl.classList.toggle('tight',tight);const os=$$('#orbits .orbit');
   if(!tight){os.forEach((o,i)=>{o.classList.remove('hide');o.style.left='';o.style.top=''});return}
-  const ph=W<=760?40:54,free=splashTop-h1b,rows=free>ph*2+46?2:1,per=Math.max(3,Math.min(6,Math.floor((W-24)/(ph*2.7))));
+  const ph=W<=760?40:54,free=splashTop-h1b,rows=free>ph*2+30?2:1,per=Math.max(3,Math.min(6,Math.floor((W-12)/(ph*2.15))));
   let idx=0;const order=[0,14,2,9,7,1,8,3,10,5,12,4,11,6,13];
   os.forEach(o=>o.classList.add('hide'));
   for(let r=0;r<rows;r++){const n=r?per-1:per,y=h1b+free*(rows===2?(r?.7:.3):.5);
     for(let c=0;c<n;c++){const o=os[order[idx++]];if(!o)break;o.classList.remove('hide');o.style.left=(W*(c+.5+(r?.5:0))/per)+'px';o.style.top=y+'px'}}}
 function fitAll(){fitHero();layoutOrbits()}
+/* tight layouts can't show every badge, so the visible ones fade and swap through the rest */
+{let slot=0;if(!RM)setInterval(()=>{if(!heroOn||document.hidden||!heroEl.classList.contains('tight'))return;
+  const os=$$('#orbits .orbit'),vis=os.filter(o=>!o.classList.contains('hide')),pool=os.filter(o=>o.classList.contains('hide'));if(!vis.length||!pool.length)return;
+  const a=vis[slot++%vis.length].querySelector('.in'),b=pool[(Math.random()*pool.length)|0].querySelector('.in');a.classList.add('swap');
+  setTimeout(()=>{const t=a.innerHTML;a.innerHTML=b.innerHTML;b.innerHTML=t;a.classList.remove('swap')},360)},1700)}
 fitAll();addEventListener('resize',fitAll,{passive:true});document.fonts&&document.fonts.ready.then(fitAll);
 
 /* pixel trail: draws only while there is something to fade */
@@ -809,7 +849,7 @@ $('#sidesEl').innerHTML=`
   <div class="logos">${['python','postgres','next','ts','prisma','chrome','claude','vercel','github'].map(k=>tile(k)).join('')}</div>
 </div>`;
 const sides=$$('.side'),swb=$$('#sw button');
-function openSide(i){sides.forEach((o,j)=>{o.classList.toggle('open',j===i);o.setAttribute('aria-expanded',j===i)});swb.forEach((b,j)=>b.classList.toggle('on',j===i))}
+function openSide(i){sides.forEach((o,j)=>{o.classList.toggle('open',j===i);if(j===i)o.classList.add('in');o.setAttribute('aria-expanded',j===i)});swb.forEach((b,j)=>b.classList.toggle('on',j===i))}
 sides.forEach((s,i)=>{if(FINE)s.addEventListener('mouseenter',()=>openSide(i));s.addEventListener('click',()=>openSide(i));s.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openSide(i)}})});
 swb.forEach((b,i)=>b.addEventListener('click',()=>openSide(i)));
 
@@ -882,7 +922,7 @@ const TW=[
 ];
 const world=$('#world'),SZ=()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s'));
 const faces='<i class="t"></i><i class="s"></i><i class="n"></i><i class="e"></i><i class="w"></i>';
-function buildIso(){const s=SZ();world.innerHTML=`<div class="bx base" style="left:0;top:0;width:${7*s}px;height:${7*s}px;--h:${s*.7}px;transform:translateZ(${-s*.7}px)">${faces}</div>`+TW.map(t=>`<div class="bx tw ${t.cls||''}" data-k="${t.k}" style="left:${t.x*s}px;top:${t.y*s}px;width:${s}px;height:${s}px">${faces.replace('<i class="t"></i>',`<i class="t"><b>${t.l}</b></i>`)}</div>`).join('');
+function buildIso(){const s=SZ();world.innerHTML=`<div class="bx base" style="left:0;top:0;width:${7*s}px;height:${7*s}px;--h:${s*.7}px;transform:translateZ(${-s*.7}px)">${faces}</div>`+TW.map(t=>`<div class="bx tw ${t.cls||''}" data-k="${t.k}" style="left:${t.x*s}px;top:${t.y*s}px;width:${s}px;height:${s}px">${faces.replace('<i class="t"></i>',`<i class="t"><b style="--fs:${Math.min(9.5,s*1.02/(t.l.length*.72)).toFixed(1)}px">${t.l}</b></i>`)}</div>`).join('');
   $$('.tw').forEach(el=>{el.addEventListener('pointerenter',()=>focusT(el.dataset.k));el.addEventListener('click',()=>focusT(el.dataset.k))})}
 function grow(){const s=SZ();$$('.tw').forEach((el,i)=>{const t=TW.find(x=>x.k===el.dataset.k);el.style.transition='none';el.style.setProperty('--h','0px');void el.offsetWidth;el.style.transition=`--h 1s cubic-bezier(.3,1.4,.5,1) ${RM?0:i*.09}s`;el.style.setProperty('--h',t.h*s+'px')})}
 let cur='people';
