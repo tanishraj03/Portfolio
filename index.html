@@ -761,7 +761,7 @@ const OK=[['cocacola',13,30,0,-6],['netflix',5,44,1,5],['fanta',23,44,0,-4],['th
 const HB={cocacola:['#E41E2B','w','cocacola.png',.4],netflix:['#000','i','netflix.png',.36],fanta:['#FF8A00','i','fanta.png',.74],thumsup:['#14306F','i','thumsup.png',.8],
  allen:['#0B4EA2','w','allen.png',.36],sprite:['#00843D','w','sprite.png',.44],charged:['#111','i','charged.png',.84],visa:['#1A1F71','p','#fff',.92],
  hackerrank:['#0E141E','p','#00EA64',.64],acko:['#4A2BC2','w','acko.png',.36],campa:['#D7182A','w','campa.png',.78],kimi:['#000','i','kimi.png',.9],
- openai:['#000','p','#fff',.56],emergent:['#0B0B0B','i','emergent.png',.82],swiggy:['#FC8019','w','swiggy.png',.42]};
+ openai:['#000','p','#fff',.56],emergent:['#0B0B0B','i','emergent.png',.82],swiggy:['#FC8019','i','swiggy-white.png',.42]};
 const badge=(k,r)=>{const [bg,m,v,kk]=HB[k],n=B[k].n;const inner=m==='p'?`<svg viewBox="0 0 24 24"><path fill="${v}" d="${PATHS[B[k].p]}"/></svg>`:`<img class="${m==='w'?'wh':''}" src="${L+v}" alt="" decoding="async">`;
  return `<span class="hb" title="${n}" style="background:${bg};--k:${kk};--r:${r}deg">${inner}</span>`};
 $('#orbits').innerHTML=OK.map(([k,x,y,far,r],i)=>`<div class="orbit ${far?'far':''}" style="--x:${x}%;--y:${y}%;transition-delay:${.9+i*.05}s"><div class="px" data-d="${.5+(i%4)*.22}"><div class="in" style="--t:${4+(i%5)*.6}s;--dl:-${i*.7}s">${badge(k,r)}</div></div></div>`).join('');
