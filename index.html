@@ -160,27 +160,19 @@ section{position:relative}
 @media(max-width:420px){.side .proof b{font-size:19px}}
 
 /* YAAS tools */
-.tools{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.tools{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:end}
 .tools h2{margin:0;font:700 clamp(30px,4vw,52px)/1.02 Tektur,sans-serif;text-transform:uppercase;text-wrap:balance}
 .tools h2 span{color:var(--red)}
-.tools .lead{color:var(--mut);font-size:18px;margin:18px 0 24px;max-width:46ch}
+.tools .lead{color:var(--mut);font-size:clamp(17px,1.4vw,19px);margin:0 0 24px;max-width:48ch}
 .tm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .tm div{border:1px solid var(--line);background:var(--card);padding:16px}
-.tm b{display:block;font:700 clamp(22px,2.4vw,30px)/1 Tektur,sans-serif}
+.tm div{display:flex;flex-direction:column;gap:8px}
+.tm b{display:block;font:700 clamp(26px,2.3vw,34px)/1 Tektur,sans-serif;white-space:nowrap}
+.tm b em{font-size:.66em;margin-left:.12em}
 .tm b em{font-style:normal;color:var(--red)}
-.tm span{font-size:13px;color:var(--mut)}
-.flow{position:relative;border:1px solid var(--line);background:var(--card)}
-.step{display:grid;grid-template-columns:54px minmax(0,1fr);gap:16px;padding:20px 22px;border-bottom:1px solid var(--line);position:relative;transition:background .25s;cursor:default}
-.step:last-child{border-bottom:0}
-.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transform-origin:top;transition:transform .35s}
-.step:hover,.step.on{background:var(--card2)}
-.step:hover::before,.step.on::before{transform:none}
-.step .no{font:700 13px/1 Tektur,sans-serif;letter-spacing:.08em;color:var(--mut);text-transform:uppercase;padding-top:4px}
-.step h4{margin:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font:700 18px/1.2 Tektur,sans-serif;text-transform:uppercase}
-.step h4 .tl{font:600 12px/1 Tektur,sans-serif;letter-spacing:.08em;color:#fff;background:var(--red);padding:6px 8px}
-.step p{margin:8px 0 0;color:var(--mut);font-size:15.5px}
+.tm span{font-size:13.5px;line-height:1.35;color:var(--mut)}
 @media(max-width:860px){.tools{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:420px){.tm{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tm div:last-child{grid-column:1/-1}.step{grid-template-columns:minmax(0,1fr);gap:6px}}
+@media(max-width:420px){.tm{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tm div:last-child{grid-column:1/-1}}
 
 /* work */
 .fhint{display:flex;align-items:center;gap:10px;margin:-8px 0 18px;color:var(--mut);font-size:15.5px}
@@ -497,11 +489,12 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
     <p class="label">Built at YAAS! for the marketing team</p>
     <div class="tools">
       <div class="reveal">
-        <h2>I build the tools my marketing team <span>runs on.</span></h2>
-        <p class="lead">At YAAS! I don't just run campaigns. When the team's workflow slows down, I build the fix, so creator discovery, outreach and campaign reporting move faster and campaigns ship cleaner.</p>
-        <div class="tm"><div><b>~3<em> hrs</em></b><span>of manual work saved every day</span></div><div><b>~15<em> hrs</em></b><span>saved every week</span></div><div><b>Daily</b><span>used across the marketing team</span></div></div>
+        <h2>I build the AI-powered tools my marketing team <span>runs on.</span></h2>
       </div>
-      <div class="flow reveal" id="flow"></div>
+      <div class="reveal">
+        <p class="lead">At YAAS! I don't just run campaigns. When the team's workflow slows down, I build the fix: AI-powered, forward-looking platforms that make creator discovery, outreach and campaign reporting faster, so campaigns ship cleaner.</p>
+        <div class="tm"><div><b>~3<em>hrs</em></b><span>of manual work saved every day</span></div><div><b>~15<em>hrs</em></b><span>saved every week</span></div><div><b>8<em>+</em></b><span>AI-powered tools &amp; platforms shipped for YAAS!</span></div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -766,7 +759,7 @@ const S=[
  {n:60,pre:'₹',suf:'L+',t:'revenue from brand deals I sourced and closed',org:'yaas',how:'Closed with OpenAI, Kimi AI, Emergent & others'},
  {n:30,pre:'~₹',suf:'L',t:'revenue at Raahe, bootstrapped in college',org:'raahe',how:'Owned the events & artist-management P&L'},
  {n:50,pre:'',suf:'K',t:'peak daily active users on the Under25 app',org:'u25',how:'Growth features shipped with product & engineering'},
- {n:10,pre:'',suf:'+',t:'real-world tools and platforms built and shipped',org:'built',how:'Creator Scout, Nova, DeepField, Woops, Quick Search & more'},
+ {n:10,pre:'',suf:'+',t:'AI-powered tools and platforms built and shipped',org:'built',how:'Creator Scout, Nova, DeepField, Woops, Quick Search & more'},
  {n:23,pre:'',suf:'%',t:'pitch-to-account conversion: 350 of 1,500',org:'qviq',how:"Founder's Office · Qviqsites + NFC smart cards"},
  {n:15,pre:'',suf:' hrs',t:'of manual work saved for the YAAS! team every week',org:'yaas',how:'Faster creator discovery, outreach and reporting'},
  {n:250,pre:'',suf:'+',t:'virtual and offline events run end to end',org:'u25',how:'Co-branded with Google Gemini and Lenovo'}
@@ -790,10 +783,10 @@ $('#sidesEl').innerHTML=`
 <div class="side reveal" tabindex="0" role="button" aria-expanded="false">
   <div class="k">Side B · Tech &amp; builds</div>
   <h3>I build the machine</h3>
-  <p>When a workflow is slow, I ship the tool myself: Chrome extensions, dashboards and AI products that my marketing team uses every day.</p>
+  <p>When a workflow is slow, I ship the tool myself: AI-powered, forward-looking platforms, Chrome extensions and dashboards that my marketing team uses every day.</p>
   <div class="peek">Hover to open →</div>
   <div class="more">
-   <div class="proof"><div><b>10+</b><span>real-world tools & platforms</span></div><div><b>15 hrs</b><span>saved per week</span></div><div><b>Daily</b><span>used by the YAAS! team</span></div></div>
+   <div class="proof"><div><b>10+</b><span>AI-powered tools & platforms</span></div><div><b>15 hrs</b><span>saved per week</span></div><div><b>8+</b><span>shipped for YAAS!</span></div></div>
    <div class="tags">${['SQL','Python','Next.js','TypeScript','PostgreSQL + Prisma','Chrome extensions','AI APIs & agents','Workflow automation','Rapid prototyping'].map(t=>`<span class="tag">${t}</span>`).join('')}</div>
   </div>
   <div class="logos">${['python','postgres','next','ts','prisma','chrome','claude','vercel','github'].map(k=>tile(k)).join('')}</div>
@@ -804,14 +797,6 @@ sides.forEach((s,i)=>{if(FINE)s.addEventListener('mouseenter',()=>openSide(i));s
 swb.forEach((b,i)=>b.addEventListener('click',()=>openSide(i)));
 
 /* ---------- YAAS tools flow ---------- */
-const FL=[
- ['Discover','Creator Scout','scout','Save Instagram and YouTube creators and reels straight into a shared master database, sorted by brand, niche and campaign type on a team moodboard.'],
- ['Vet','Quick Search','quick','One hotkey opens any creator in our influencer analytics platform; a second one unlocks their audience data. No more copy-paste lookups.'],
- ['Execute','Nova','nova','Task boards, meetings and owners across every campaign workspace, with rule-based flags for overdue tasks, overloaded people and stale blockers.'],
- ['Report','Nova + Sheets','sheets','Central dashboards and one-click exports turn day-to-day tracking into the campaign reports clients see.']
-];
-$('#flow').innerHTML=FL.map(([st,t,k,d],i)=>`<div class="step${i?'':' on'}"><div class="no">${tile(k,44)}</div><div><h4>${String(i+1).padStart(2,'0')} · ${st} <span class="tl">${t}</span></h4><p>${d}</p></div></div>`).join('');
-$$('.step').forEach(s=>s.addEventListener('mouseenter',()=>{$$('.step').forEach(o=>o.classList.toggle('on',o===s))}));
 
 /* ---------- work ---------- */
 const plates=(ks,max=7)=>ks.slice(0,max).map(k=>B[k].pl||B[k].plp?plate(k):tile(k)).join('')+(ks.length>max?`<span class="more">+${ks.length-max}</span>`:'');
@@ -822,7 +807,6 @@ const W=[
   m:{role:'Influencer Marketing Analyst · YAAS! Media',when:'Apr 2026 – present',ctx:'Creator-led campaigns for beverage, fintech, edtech and consumer-tech brands, from creator shortlist to post-campaign analysis.',imp:[['400M+','views across Instagram, YouTube and digital'],['15+','brands across beverages, fintech, edtech and tech'],['35+','high-priority pitches supported']],did:['Executed campaigns for Coca-Cola brands (Sprite, Fanta, Thums Up, Charged, Diet Coke), Campa Cola, Netflix, Vodafone Idea, Visa, Aspora, Acko, Allen Digital, HackerRank and Nothing.','Ran social listening and campaign analysis to track trends, brand spend patterns and the formats that perform, then fed it back into creator and content strategy.','Built creator shortlists, campaign concepts and influencer plans for pitches with the Founders Office and BD team.'],brands:['cocacola','sprite','fanta','thumsup','charged','dietcoke','campa','netflix','vi','visa','aspora','acko','allen','hackerrank','nothing']}},
  {id:'deals',t:'Brand deal acquisition',k:'yaas',sub:"YAAS! Media · BD with the Founder's Office",c:['growth','founder'],cv:['Business development','₹60','L+','in brand-deal revenue, sourced, pitched and closed.',['openai','kimi','emergent']],
   m:{role:'Business Development · YAAS! Media',when:'Apr 2026 – present',ctx:'Finding the brands most likely to spend, and getting them to say yes.',imp:[['₹60L+','revenue generated'],['35+','pitches supported'],['3','AI brands closed: OpenAI, Emergent, Kimi AI']],did:['Sourced high-potential partnership opportunities and researched prospects before every pitch.','Wrote targeted pitches for key accounts and worked them through to signed deals.','Compiled competitive intelligence and target-market reports that shaped strategy for the core sales pipeline.'],brands:['openai','emergent','kimi']}},
- {id:'tools',t:'Marketing tools at YAAS!',k:'built',sub:'Internal tools for the marketing team',c:['builds','growth'],cv:['Internal tools','15',' hrs','of manual work saved every week, used daily by the marketing team.',['scout','quick','nova','sheets']],jump:'#tools'},
  {id:'under25',t:'Under25 app',k:'u25',sub:'Growth & partnerships · Collective Artists Network',c:['growth'],cv:['Growth','50','K','peak daily active users, with 250+ events and 30+ in-app brand campaigns.',['gemini','lenovo','royalenfield','swiggy']],
   m:{role:'Growth & Partnerships · Under25 (Collective Artists Network)',when:'Jun 2025 – Apr 2026',ctx:'A youth community app where events and brand campaigns drive daily usage.',imp:[['50,000','peak daily active users'],['250+','events run end to end'],['30+','in-app brand campaigns']],did:['Ran 250+ virtual and offline events, including co-branded activations with Google Gemini and Lenovo.','Delivered 30+ in-app brand campaigns for brands like Royal Enfield and Swiggy as the link between brand managers, marketing and engineering.','Used engagement and retention data to find friction points and aligned product and engineering on growth features.','Onboarded and managed event hosts and venue partners to keep a steady pipeline of experiences.'],brands:['gemini','lenovo','royalenfield','swiggy']}},
  {id:'qviq',t:'Qviq',k:'qviq',sub:"Founder's Office · business development",c:['founder','growth'],cv:["Founder's Office",'23','%','pitch-to-account conversion: 350 accounts from 1,500 pitches.',['qviq']],
@@ -876,7 +860,7 @@ const TW=[
  {k:'qviq',l:'QVIQ',x:3,y:1,h:2,lg:'qviq',tag:'Nov 2024 – Jan 2025',title:"Qviq · Founder's Office",body:'1,500+ creators and brands pitched, 350+ converted. Roughly a 23% conversion rate.'},
  {k:'fest',l:'U25 FEST',x:1,y:1,h:2,lg:'u25',tag:'Jan – Mar 2023',title:'Under25 Universe',body:'Sponsor activations for Netflix, Groww and Hero MotoCorp at a 30,000+ attendee festival.'},
  {k:'ecell',l:'E-CELL',x:5,y:5,h:3,lg:'ecell',tag:'2022 – 2026',title:'E-Cell, Sir MVIT',body:'Director & head of corporate relations. Partnerships with Red Bull, StockGro and others; 9 startups mentored.'},
- {k:'code',l:'CODE',x:5,y:1,h:3,cls:'code',lg:'built',tag:'Always on',title:'Builds',body:'10+ real-world tools and platforms: Nova, DeepField, Woops, Creator Scout, Quick Search and more.'},
+ {k:'code',l:'CODE',x:5,y:1,h:3,cls:'code',lg:'built',tag:'Always on',title:'Builds',body:'10+ AI-powered tools and platforms: Nova, DeepField, Woops, Creator Scout, Quick Search and more.'},
  {k:'school',l:'ECE',x:1,y:5,h:1,tag:'2022 – 2026',title:'B.E., Electronics & Communication',body:'Sir M Visvesvaraya Institute of Technology (VTU). Where the engineering habit started.'}
 ];
 const world=$('#world'),SZ=()=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s'));
@@ -904,7 +888,7 @@ let resizeT,lastW=innerWidth;addEventListener('resize',()=>{if(innerWidth===last
 
 /* experience list */
 const XP=[
- {k:'yaas',r:'Influencer Marketing Analyst',c:'YAAS! Media',d:'Apr 2026 – Present',open:1,b:['Executed creator-led campaigns for <b>Coca-Cola brands (Sprite, Fanta, Thums Up, Charged), Campa Cola, Netflix, Vodafone Idea, Visa, Aspora, Acko, Allen Digital, HackerRank and Nothing</b>, among others, generating <b>400M+ views</b>.','Generated <b>₹60L+ in revenue</b> by sourcing and closing brand deals with <b>OpenAI, Kimi AI and Emergent</b>, among others.','Built <b>internal tools for the marketing team</b> (Creator Scout, Quick Search, Nova) that cut <b>~3 hours of manual work a day</b> and speed up creator discovery, outreach and reporting.','Supported <b>35+ high-priority pitches</b> with the Founders Office and BD teams: creator shortlists, concepts and influencer plans.','Ran social listening and campaign analysis across <b>10+ client accounts</b> to shape creator and content strategy.']},
+ {k:'yaas',r:'Influencer Marketing Analyst',c:'YAAS! Media',d:'Apr 2026 – Present',open:1,b:['Executed creator-led campaigns for <b>Coca-Cola brands (Sprite, Fanta, Thums Up, Charged), Campa Cola, Netflix, Vodafone Idea, Visa, Aspora, Acko, Allen Digital, HackerRank and Nothing</b>, among others, generating <b>400M+ views</b>.','Generated <b>₹60L+ in revenue</b> by sourcing and closing brand deals with <b>OpenAI, Kimi AI and Emergent</b>, among others.','Shipped <b>8+ AI-powered tools and platforms for the marketing team</b> (Creator Scout, Quick Search, Nova and more) that cut <b>~3 hours of manual work a day</b> and speed up creator discovery, outreach and reporting.','Supported <b>35+ high-priority pitches</b> with the Founders Office and BD teams: creator shortlists, concepts and influencer plans.','Ran social listening and campaign analysis across <b>10+ client accounts</b> to shape creator and content strategy.']},
  {k:'can',r:'Growth & Partnerships',c:'Collective Artists Network · Under25 app',d:'Jun 2025 – Apr 2026',b:['Executed <b>250+ events</b> end to end, including co-branded activations with <b>Google Gemini and Lenovo</b>.','Delivered <b>30+ in-app brand campaigns</b> for brands like <b>Royal Enfield and Swiggy</b>.','Aligned marketing, product and engineering on growth features that scaled the app to a <b>peak of 50,000 DAU</b>.']},
  {k:'raahe',r:'Co-founder',c:'Raahe · offline artist community',d:'Dec 2024 – Apr 2026',b:['Bootstrapped Bengaluru’s largest offline artist community to <b>~₹30L in revenue</b> while in college.','Managed alliances with <b>25+ venue partners</b> and owned the <b>end-to-end P&amp;L</b>.','Took the Raahe Open Mic to <b>#1 on Zomato District</b> for Bengaluru.']},
  {k:'qviq',r:"Founder's Office · Business Development Intern",c:'Qviq.io',d:'Nov 2024 – Jan 2025',b:['Pitched <b>1,500+ creators and brands</b>; converted <b>350+ accounts (~23%)</b> to Qviqsites and NFC smart cards.','Owned onboarding and relationships for every new account.']},
