@@ -48,14 +48,14 @@ img{display:block;max-width:100%}
 /* hero */
 .hero{position:relative;height:100svh;min-height:600px;max-height:1200px;background:var(--red);color:#fff;overflow:hidden;padding:clamp(84px,11svh,112px) 18px 0;text-align:center}
 #trail{position:absolute;inset:0;width:100%;height:100%}
-.hero h1{position:relative;z-index:3;margin:0 auto;font-weight:700;line-height:.98;font-size:clamp(30px,min(5.4vw,8.4svh),78px);text-wrap:balance;pointer-events:none}
+.hero h1{position:relative;z-index:3;margin:0 auto;font-weight:700;line-height:.98;font-size:clamp(28px,min(5.2vw,7.6svh),76px);text-wrap:balance;pointer-events:none}
 .hero .hi{display:block;font-size:.46em;margin-bottom:.32em;letter-spacing:.06em;opacity:0;transform:translateY(10px);animation:up .7s .1s cubic-bezier(.16,1,.3,1) forwards}
 .hero .ttl{display:block;opacity:0;transform:translateY(14px);animation:up .8s .25s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes up{to{opacity:1;transform:none}}
 .hero .rot{display:inline-block;white-space:nowrap}
 .portrait{position:absolute;z-index:2;left:50%;bottom:0;height:min(clamp(320px,calc(100svh - 250px),760px),132vw);aspect-ratio:969/1217;transform:translate(-50%,105%);transition:transform 1.15s cubic-bezier(.16,1,.3,1)}
 .ready .portrait{transform:translate(-50%,0)}
-.portrait .me{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.portrait .me{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 13%,#000 85%,transparent 99%);mask-image:linear-gradient(90deg,transparent 0,#000 13%,#000 85%,transparent 99%)}
 .splash{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .splash .sg{transform-box:view-box;transform-origin:420px 282px;transform:scale(.2) rotate(-25deg);opacity:0;transition:transform 1s cubic-bezier(.34,1.56,.64,1) .55s,opacity .4s .55s}
 .ready .splash .sg{transform:none;opacity:1}
@@ -610,7 +610,7 @@ const OWN={
 const B={
  cocacola:{n:'Coca-Cola',p:'cocacola',bg:'#D00013',fg:'#fff',pl:'cocacola.png',k:.56},
  netflix:{n:'Netflix',p:'netflix',bg:'#000',fg:'#E50914',pl:'netflix.png',k:.44},
- visa:{n:'Visa',p:'visa',bg:'#1A1F71',fg:'#fff',plp:1,k:.62},
+ visa:{n:'Visa',p:'visa',bg:'#1A1F71',fg:'#fff',plp:1,k:.95},
  openai:{n:'OpenAI',p:'openai',bg:'#fff',fg:'#000',plp:1,k:.62},
  gemini:{n:'Google Gemini',p:'googlegemini',bg:'#fff',fg:'#4E7CF6',plp:1,k:.62},
  hackerrank:{n:'HackerRank',p:'hackerrank',bg:'#0E141E',fg:'#00EA64',plp:1,k:.62},
@@ -695,6 +695,10 @@ if(FINE&&!RM)addEventListener('pointermove',e=>{if(!heroOn)return;mx=e.clientX/i
 const me=$('#me');const goReady=()=>requestAnimationFrame(()=>document.body.classList.add('ready'));
 me.complete?goReady():(me.addEventListener('load',goReady),setTimeout(goReady,1500));
 new IntersectionObserver(es=>{heroOn=es[0].isIntersecting}).observe($('#home'));
+/* fit portrait under the headline on any screen ratio (splash rises ~7.5% above the photo) */
+const heroEl=$('#home'),h1El=$('.hero h1'),pEl=$('#portrait');
+function fitHero(){const top=h1El.getBoundingClientRect().bottom-heroEl.getBoundingClientRect().top;const H=Math.min(780,innerWidth*1.3,(heroEl.clientHeight-top-18)/1.08);pEl.style.height=Math.max(280,H)+'px'}
+fitHero();addEventListener('resize',fitHero,{passive:true});document.fonts&&document.fonts.ready.then(fitHero);
 
 /* pixel trail: draws only while there is something to fade */
 {const cv=$('#trail'),cx=cv.getContext('2d'),cells=new Map(),CS=70;let running=false;
