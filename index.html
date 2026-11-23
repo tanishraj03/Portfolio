@@ -80,7 +80,7 @@ img{display:block;max-width:100%}
 @keyframes nudge{50%{transform:translateY(4px)}}
 .hero .fade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--bg) 94%);z-index:4;pointer-events:none}
 @media(max-width:760px){.hb{--ph:40px}}
-@media(max-width:600px){.hero h1{font-size:min(9.2vw,44px)}}
+@media(max-width:600px){.hero h1{font-size:min(7.3vw,40px)}}
 .hero.tight .orbit.hide{display:none}
 .orbit .in{transition:opacity .35s,scale .35s}
 .orbit .in.swap{opacity:0;scale:.7}
@@ -98,11 +98,11 @@ img{display:block;max-width:100%}
 
 /* ticker */
 .ticker{position:relative;background:var(--bg);border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:16px 0}
-.ticker .tr{display:inline-flex;gap:46px;animation:tick 46s linear infinite;padding-left:46px}
+.ticker .tr{display:inline-flex;align-items:center;gap:46px;animation:tick 46s linear infinite;padding-left:46px}
 .ticker:hover .tr{animation-play-state:paused}
 .ticker span{font:600 clamp(17px,2.1vw,25px)/1 Tektur,sans-serif;text-transform:uppercase;color:var(--ink)}
 .ticker span b{color:var(--red)}
-.ticker i{font-style:normal;color:var(--mut)}
+.ticker i{display:block;flex:none;width:9px;height:9px;background:var(--mut);transform:rotate(45deg)}
 @keyframes tick{to{transform:translateX(-50%)}}
 
 section{position:relative}
@@ -785,10 +785,11 @@ function layoutOrbits(){const H=parseFloat(pEl.style.height),hr=heroEl.getBoundi
   const h1b=h1El.getBoundingClientRect().bottom-hr.top,splashTop=heroEl.clientHeight-H*1.075;
   const tight=W/2-0.6*H<170;heroEl.classList.toggle('tight',tight);const os=$$('#orbits .orbit');
   if(!tight){os.forEach((o,i)=>{o.classList.remove('hide');o.style.left='';o.style.top=''});return}
-  const ph=W<=760?40:54,free=splashTop-h1b,rows=free>ph*2+30?2:1,per=Math.max(3,Math.min(6,Math.floor((W-12)/(ph*2.15))));
+  const ph=W<=760?40:54,free=splashTop-h1b,gapT=20,gapB=14,rowGap=16,rows=free-gapT-gapB>=ph*2+rowGap+8?2:1,per=Math.max(3,Math.min(6,Math.floor((W-12)/(ph*2.15))));
   let idx=0;const order=[0,14,2,9,7,1,8,3,10,5,12,4,11,6,13];
   os.forEach(o=>o.classList.add('hide'));
-  for(let r=0;r<rows;r++){const n=r?per-1:per,y=h1b+free*(rows===2?(r?.7:.3):.5);
+  const used=rows*ph+(rows-1)*rowGap,y0=h1b+gapT+Math.max(0,(free-gapT-gapB-used)/2)+ph/2;
+  for(let r=0;r<rows;r++){const n=r?per-1:per,y=y0+r*(ph+rowGap);
     for(let c=0;c<n;c++){const o=os[order[idx++]];if(!o)break;o.classList.remove('hide');o.style.left=(W*(c+.5+(r?.5:0))/per)+'px';o.style.top=y+'px'}}}
 function fitAll(){fitHero();layoutOrbits()}
 /* tight layouts can't show every badge, so the visible ones fade and swap through the rest */
@@ -807,7 +808,7 @@ fitAll();addEventListener('resize',fitAll,{passive:true});document.fonts&&docume
 
 /* ticker */
 const T=[['400M+','views on creator campaigns'],['₹60L+','in brand deals'],['~₹30L','bootstrapped at Raahe'],['50K','peak daily users'],['10+','tools & platforms built'],['250+','events run'],['35+','brand pitches'],['#1','open mic on Zomato District'],['30,000+','festival attendees'],['15 hrs','saved every week']];
-const tk=T.map(([a,b])=>`<span><b>${a}</b> ${b}</span><i>✳</i>`).join('');$('#tick').innerHTML=tk+tk;
+const tk=T.map(([a,b])=>`<span><b>${a}</b> ${b}</span><i></i>`).join('');$('#tick').innerHTML=tk+tk;
 
 /* ---------- currently ---------- */
 $('#nowText').innerHTML=`I'm running creator-led campaigns at ${chip('yaas')} for ${chip('cocacola')}, ${chip('netflix')}, ${chip('acko')} and more, closing brand deals with ${chip('openai')}, ${chip('kimi')} and ${chip('emergent')} among others, and building the internal tools our marketing team runs on. Before that, I helped grow the ${chip('u25')} app to 50,000 daily users and co-founded ${chip('raahe')}, which hit ~₹30L in revenue while I was still in college.`;
