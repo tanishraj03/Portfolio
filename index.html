@@ -183,13 +183,26 @@ section{position:relative}
 @media(max-width:420px){.tm{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tm div:last-child{grid-column:1/-1}.step{grid-template-columns:minmax(0,1fr);gap:6px}}
 
 /* work */
-.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:18px}
-.filters button{all:unset;cursor:pointer;min-height:48px;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);background:var(--bg);font:600 13px/1 Tektur,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);transition:.2s;text-align:center}
-.filters button .ct{font-size:11px;opacity:.6}
-.filters button.on{background:var(--card2);color:var(--ink);border-color:color-mix(in srgb,var(--ink) 25%,transparent)}
-.filters button:focus-visible{outline:2px solid var(--red)}
-.filters svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;flex:none}
-@media(max-width:640px){.filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fhint{display:flex;align-items:center;gap:10px;margin:-8px 0 18px;color:var(--mut);font-size:15.5px}
+.fhint svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--red);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.fhint b{color:var(--ink);font-weight:600}
+.filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:22px}
+.filters button{all:unset;box-sizing:border-box;cursor:pointer;position:relative;display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:2px 14px;padding:18px 20px;border:1px solid var(--line);background:var(--card);color:var(--ink);transition:background .25s,border-color .25s,transform .25s,color .25s}
+.filters button:hover{border-color:color-mix(in srgb,var(--ink) 40%,transparent);transform:translateY(-2px)}
+.filters .fi{grid-row:1/3;width:46px;height:46px;display:grid;place-items:center;border:1px solid var(--line);background:var(--bg);transition:.25s}
+.filters svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.filters .ft{font:700 clamp(16px,1.5vw,19px)/1.1 Tektur,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.filters .fd{font-size:13.5px;color:var(--mut);line-height:1.3}
+.filters .ct{grid-row:1/3;grid-column:3;text-align:right;font:700 30px/1 Tektur,sans-serif;color:var(--mut)}
+.filters .ct small{display:block;font:600 10px/1.4 Tektur,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.filters button.on{background:var(--red);border-color:var(--red);color:#fff;transform:none}
+.filters button.on .fd,.filters button.on .ct{color:rgba(255,255,255,.88)}
+.filters button.on .fi{background:rgba(0,0,0,.18);border-color:rgba(255,255,255,.3)}
+.filters button.on::after{content:"";position:absolute;left:50%;bottom:-9px;width:16px;height:16px;background:var(--red);transform:translateX(-50%) rotate(45deg)}
+.filters button:not(.on) .ft::after{content:" →";opacity:0;transition:opacity .2s}
+.filters button:not(.on):hover .ft::after{opacity:1}
+.filters button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(max-width:760px){.filters{grid-template-columns:minmax(0,1fr);gap:8px}.filters button{padding:14px 16px;grid-template-columns:40px minmax(0,1fr) auto}.filters .fi{width:40px;height:40px}.filters button.on::after{display:none}.filters .ct{font-size:24px}}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .card{all:unset;box-sizing:border-box;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:clamp(16px,2vw,22px);display:flex;flex-direction:column;gap:16px;transition:border-color .25s,transform .3s}
 .card:hover{border-color:color-mix(in srgb,var(--ink) 30%,transparent);transform:translateY(-3px)}
@@ -253,9 +266,10 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
 .rlogo{display:flex;align-items:center;gap:12px;margin-bottom:22px;font:600 15px/1 Tektur,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#cfc9d8}
 .rlogo .lg{width:44px;height:44px}
 .rh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:start}
-.rh h2{margin:0;font:700 clamp(34px,4.6vw,62px)/1 Tektur,sans-serif;text-transform:uppercase;text-wrap:balance}
+.rh h2{margin:0;font:700 clamp(34px,4.8vw,64px)/1 Tektur,sans-serif;text-transform:uppercase;text-wrap:balance}
 .rh h2 span{color:var(--pink)}
 .rh p{color:#b9b4c2;margin:0 0 14px;font-size:clamp(16px,1.4vw,18px)}
+.rh p:last-child{margin-bottom:0}
 .rh p:first-child{color:#e7e3ec}
 .strip{display:flex;gap:12px;overflow-x:auto;padding:40px max(5vw,18px) 18px;scroll-snap-type:x proximity;cursor:grab;scrollbar-width:none}
 .strip::-webkit-scrollbar{display:none}
@@ -495,7 +509,8 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
 <section class="band" id="work">
   <div class="wrap">
     <p class="label">Selected work</p>
-    <div class="filters" role="tablist" id="filters"></div>
+    <p class="fhint"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg><span><b>Three sides to my work.</b> Switch tabs to reveal a different set of projects.</span></p>
+    <div class="filters" role="tablist" id="filters" aria-label="Switch the projects shown"></div>
     <div class="cards" id="cards"></div>
   </div>
 </section>
@@ -508,8 +523,8 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
     <div class="rh">
       <h2>Every dream deserves a <span>stage.</span> We built them.</h2>
       <div>
-        <p>India watches more live performance than almost anywhere on earth, yet the people making it struggle to pay rent. In college, Smera Shetty and I started Raahe to build the missing piece: nights where new artists get a real stage, clients who actually pay them, and a crowd that turns up for both.</p>
-        <p>No follower count, no showreel, no contacts. If you can hold a room, you're in. That rule turned into Bengaluru's top-ranked open mic and an ecosystem for singers, comics, poets and bands.</p>
+        <p>India loves live performance, yet the people making it struggle to pay rent. In college, Smera Shetty and I started Raahe to fix that: real stages for new artists, clients who pay them, and a crowd that shows up.</p>
+        <p>No follower count needed. If you can hold a room, you're in. That rule built Bengaluru's top-ranked open mic.</p>
       </div>
     </div>
   </div>
@@ -827,11 +842,11 @@ const W=[
 const ex='<span class="ex"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></span>';
 const cv=w=>cover(...w.cv.slice(0,5),w.cv[5]);
 $('#cards').innerHTML=W.map(w=>`<button class="card reveal" data-id="${w.id}" data-c="${w.c.join(' ')}"><div class="hd">${tile(w.k)}<div><h4>${w.t}${w.live?'<span class="live">Live</span>':''}</h4><div class="sub">${w.sub}</div></div>${ex}</div>${cv(w)}</button>`).join('')+`<a class="card cta-card hide" href="#contact" data-c="cta"><span class="label" style="margin:0">Next case study</span><h4>Yours?</h4><p>Growth, partnerships or a founder's-office problem you want solved fast. I'd love to hear about it.</p><span class="btn">Get in touch <span class="ar">→</span></span></a>`;
-const F=[['all','All','<rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/>'],['growth','Growth','<path d="M4 18l6-6 4 4 6-8"/><path d="M15 8h5v5"/>'],['builds','Builds','<path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/>'],['founder','Founder mode','<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>']];
-$('#filters').innerHTML=F.map(([k,l,p],i)=>`<button role="tab" aria-selected="${!i}" class="${i?'':'on'}" data-f="${k}"><svg viewBox="0 0 24 24">${p}</svg>${l}<span class="ct">${k==='all'?W.length:W.filter(w=>w.c.includes(k)).length}</span></button>`).join('');
-function setFilter(f){$$('#filters button').forEach(o=>{const on=o.dataset.f===f;o.classList.toggle('on',on);o.setAttribute('aria-selected',on)});$$('.card:not(.cta-card)').forEach(c=>{const show=f==='all'||c.dataset.c.split(' ').includes(f);c.classList.toggle('hide',!show);if(show)c.classList.add('in')});$('.cta-card').classList.toggle('hide',$$('.card:not(.cta-card):not(.hide)').length%2===0);$('.cta-card').classList.add('in')}
+const F=[['growth','Growth','Campaigns, deals & partnerships','<path d="M4 18l6-6 4 4 6-8"/><path d="M15 8h5v5"/>'],['builds','Builds','Tools & products I shipped','<path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/>'],['founder','Founder mode','Things I started & ran','<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>']];
+$('#filters').innerHTML=F.map(([k,l,d,p],i)=>`<button role="tab" aria-selected="${!i}" class="${i?'':'on'}" data-f="${k}"><span class="fi"><svg viewBox="0 0 24 24">${p}</svg></span><span class="ft">${l}</span><span class="fd">${d}</span><span class="ct">${W.filter(w=>w.c.includes(k)).length}<small>projects</small></span></button>`).join('');
+function setFilter(f,init){$$('#filters button').forEach(o=>{const on=o.dataset.f===f;o.classList.toggle('on',on);o.setAttribute('aria-selected',on)});$$('.card:not(.cta-card)').forEach(c=>{const show=c.dataset.c.split(' ').includes(f);c.classList.toggle('hide',!show);if(show&&!init)c.classList.add('in')});$('.cta-card').classList.toggle('hide',$$('.card:not(.cta-card):not(.hide)').length%2===0);if(!init)$('.cta-card').classList.add('in')}
 $$('#filters button').forEach(b=>b.addEventListener('click',()=>setFilter(b.dataset.f)));
-$('.cta-card').classList.toggle('hide',W.length%2===0);
+setFilter('growth',true);
 
 const dlg=document.createElement('dialog');document.body.appendChild(dlg);
 const modalList=()=>{const l=W.filter(w=>w.m&&!$(`.card[data-id="${w.id}"]`).classList.contains('hide'));return l.length?l:W.filter(w=>w.m)};
