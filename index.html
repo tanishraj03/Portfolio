@@ -691,12 +691,12 @@ function scramble(to){if(RM){rot.textContent=to;return}let f=0;const len=Math.ma
   const id=setInterval(()=>{let s='';for(let i=0;i<len;i++){const done=f>i*1.6+4;s+=done?(to[i]||''):(to[i]===' '?' ':glyph[Math.random()*glyph.length|0])}rot.textContent=s;f++;if(f>len*1.6+6){clearInterval(id);rot.textContent=to}},34)}
 setInterval(()=>{if(heroOn&&!document.hidden){wi=(wi+1)%words.length;scramble(words[wi])}},2800);
 const OK=[['cocacola',13,30,0,-6],['netflix',5,44,1,5],['fanta',23,44,0,-4],['thumsup',11,59,1,6],['allen',25,62,1,-5],['sprite',6,76,1,4],['charged',19,80,0,-3],
-          ['visa',87,30,0,5],['hackerrank',95,44,1,-5],['acko',76,44,0,4],['campa',89,59,1,-6],['kimi',75,63,1,6],['openai',94,76,1,-4],['swiggy',81,80,0,5]];
+          ['visa',84,29,0,5],['hackerrank',95,44,1,-5],['acko',76,44,0,4],['campa',89,59,1,-6],['kimi',75,63,1,6],['openai',94,76,1,-4],['swiggy',81,80,0,5],['emergent',95,27,1,-4]];
 /* hero badges: brand colour background, logo on top */
 const HB={cocacola:['#E41E2B','w','cocacola.png',.4],netflix:['#000','i','netflix.png',.36],fanta:['#FF8A00','i','fanta.png',.74],thumsup:['#14306F','i','thumsup.png',.8],
  allen:['#0B4EA2','w','allen.png',.36],sprite:['#00843D','w','sprite.png',.44],charged:['#111','i','charged.png',.84],visa:['#1A1F71','p','#fff',.92],
  hackerrank:['#0E141E','p','#00EA64',.64],acko:['#4A2BC2','w','acko.png',.36],campa:['#D7182A','w','campa.png',.78],kimi:['#000','i','kimi.png',.9],
- openai:['#000','p','#fff',.56],swiggy:['#FC8019','w','swiggy.png',.42]};
+ openai:['#000','p','#fff',.56],emergent:['#0B0B0B','i','emergent.png',.82],swiggy:['#FC8019','w','swiggy.png',.42]};
 const badge=(k,r)=>{const [bg,m,v,kk]=HB[k],n=B[k].n;const inner=m==='p'?`<svg viewBox="0 0 24 24"><path fill="${v}" d="${PATHS[B[k].p]}"/></svg>`:`<img class="${m==='w'?'wh':''}" src="${L+v}" alt="" decoding="async">`;
  return `<span class="hb" title="${n}" style="background:${bg};--k:${kk};--r:${r}deg">${inner}</span>`};
 $('#orbits').innerHTML=OK.map(([k,x,y,far,r],i)=>`<div class="orbit ${far?'far':''}" style="--x:${x}%;--y:${y}%;transition-delay:${.9+i*.05}s"><div class="px" data-d="${.5+(i%4)*.22}"><div class="in" style="--t:${4+(i%5)*.6}s;--dl:-${i*.7}s">${badge(k,r)}</div></div></div>`).join('');
@@ -716,7 +716,7 @@ function layoutOrbits(){const H=parseFloat(pEl.style.height),hr=heroEl.getBoundi
   const tight=W/2-0.6*H<170;heroEl.classList.toggle('tight',tight);const os=$$('#orbits .orbit');
   if(!tight){os.forEach((o,i)=>{o.classList.remove('hide');o.style.left='';o.style.top=''});return}
   const ph=W<=760?40:54,free=splashTop-h1b,rows=free>ph*2+46?2:1,per=Math.max(3,Math.min(6,Math.floor((W-24)/(ph*2.7))));
-  let idx=0;const order=[0,7,2,9,1,8,3,10,5,12,4,11,6,13];
+  let idx=0;const order=[0,14,2,9,7,1,8,3,10,5,12,4,11,6,13];
   os.forEach(o=>o.classList.add('hide'));
   for(let r=0;r<rows;r++){const n=r?per-1:per,y=h1b+free*(rows===2?(r?.7:.3):.5);
     for(let c=0;c<n;c++){const o=os[order[idx++]];if(!o)break;o.classList.remove('hide');o.style.left=(W*(c+.5+(r?.5:0))/per)+'px';o.style.top=y+'px'}}}
