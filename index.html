@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#EE3B3B">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/tanish_cut.webp">
+<link rel="preload" as="image" href="img/tanish_cut.webp?v=4">
 <style>
 /*
 VOICE: confident operator, numbers first, playful but precise.
@@ -53,9 +53,9 @@ img{display:block;max-width:100%}
 .hero .ttl{display:block;opacity:0;transform:translateY(14px);animation:up .8s .25s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes up{to{opacity:1;transform:none}}
 .hero .rot{display:inline-block;white-space:nowrap}
-.portrait{position:absolute;z-index:2;left:50%;bottom:0;height:min(clamp(320px,calc(100svh - 250px),760px),132vw);aspect-ratio:969/1217;transform:translate(-50%,105%);transition:transform 1.15s cubic-bezier(.16,1,.3,1)}
-.ready .portrait{transform:translate(-50%,0)}
-.portrait .me{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 13%,#000 85%,transparent 99%);mask-image:linear-gradient(90deg,transparent 0,#000 13%,#000 85%,transparent 99%)}
+.portrait{position:absolute;z-index:2;left:50%;bottom:0;height:min(60svh,520px,110vw);aspect-ratio:1144/1217;transform:translate(-36.7%,105%);transition:transform 1.15s cubic-bezier(.16,1,.3,1)}
+.ready .portrait{transform:translate(-36.7%,0)}
+.portrait .me{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .splash{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .splash .sg{transform-box:view-box;transform-origin:420px 282px;transform:scale(.2) rotate(-25deg);opacity:0;transition:transform 1s cubic-bezier(.34,1.56,.64,1) .55s,opacity .4s .55s}
 .ready .splash .sg{transform:none;opacity:1}
@@ -66,14 +66,17 @@ img{display:block;max-width:100%}
 .orbit{position:absolute;left:var(--x);top:var(--y);opacity:0;transform:translate(-50%,-50%);transition:opacity .6s}
 .ready .orbit{opacity:1}
 .orbit .in{animation:bob var(--t,5s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
-.orbit .plate{--ph:50px;box-shadow:0 14px 30px -10px rgba(0,0,0,.45);transform:rotate(var(--r,0deg))}
+.hb{--ph:54px;display:inline-flex;align-items:center;justify-content:center;height:var(--ph);min-width:var(--ph);padding:0 calc(var(--ph)*.26);border-radius:calc(var(--ph)*.24);box-shadow:0 16px 30px -12px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.12);transform:rotate(var(--r,0deg))}
+.hb img{height:calc(var(--ph)*var(--k));width:auto;max-width:calc(var(--ph)*2.6);object-fit:contain}
+.hb img.wh{filter:brightness(0) invert(1)}
+.hb svg{height:calc(var(--ph)*var(--k));width:auto}
 @keyframes bob{from{translate:0 -6px}to{translate:0 7px}}
 .scroll-cue{position:absolute;z-index:5;bottom:18px;left:50%;transform:translateX(-50%);font-size:14px;color:#fff;opacity:.85;text-decoration:none;display:flex;gap:6px;align-items:center}
 .scroll-cue svg{animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(4px)}}
 .hero .fade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--bg) 94%);z-index:4;pointer-events:none}
-@media(max-width:760px){.orbit.far{display:none}.orbit .plate{--ph:38px}}
-@media(max-aspect-ratio:3/4){.hero{max-height:none}.portrait{height:min(64svh,124vw)}}
+@media(max-width:760px){.orbit.far{display:none}.hb{--ph:40px}}
+@media(max-aspect-ratio:3/4){.hero{max-height:none}}
 
 /* logo tiles (square) */
 .lg{display:inline-block;position:relative;overflow:hidden;vertical-align:middle;flex:none;width:44px;height:44px}
@@ -396,7 +399,7 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
   <h1 class="d"><span class="hi">I'm Tanish</span><span class="ttl"><span class="rot" id="rot">Growth operator</span><br>who engineers</span></h1>
   <div id="orbits" aria-hidden="true"></div>
   <div class="portrait" id="portrait">
-    <svg class="splash back" viewBox="0 0 969 1217" aria-hidden="true">
+    <svg class="splash back" viewBox="0 0 1144 1217" aria-hidden="true">
       <defs>
         <filter id="goo" x="-40%" y="-60%" width="180%" height="220%" color-interpolation-filters="sRGB">
           <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"/>
@@ -426,8 +429,8 @@ dialog[open]{animation:pop .3s cubic-bezier(.16,1,.3,1)}
         </g>
       </g></g></g>
     </svg>
-    <img class="me" id="me" src="img/tanish_cut.webp" alt="Tanish Raj" width="969" height="1217" fetchpriority="high">
-    <svg class="splash front" viewBox="0 0 969 1217" aria-hidden="true">
+    <img class="me" id="me" src="img/tanish_cut.webp?v=4" alt="Tanish Raj" width="1144" height="1217" fetchpriority="high">
+    <svg class="splash front" viewBox="0 0 1144 1217" aria-hidden="true">
       <g class="sg"><g transform="translate(420 282) scale(1.42) translate(-475 -190)"><g filter="url(#goo)" fill="none" stroke="#F2EADB" stroke-linecap="round">
         <path d="M915 470C970 455 1010 490 1010 540" stroke-width="22"/>
         <g fill="#F2EADB" stroke="none"><circle cx="1020" cy="580" r="12"/><circle cx="985" cy="415" r="9"/><circle cx="-20" cy="420" r="10"/><circle cx="10" cy="470" r="7"/></g>
@@ -687,7 +690,14 @@ function scramble(to){if(RM){rot.textContent=to;return}let f=0;const len=Math.ma
 setInterval(()=>{if(heroOn&&!document.hidden){wi=(wi+1)%words.length;scramble(words[wi])}},2800);
 const OK=[['cocacola',13,30,0,-6],['netflix',5,44,1,5],['fanta',23,44,0,-4],['thumsup',11,59,1,6],['allen',25,62,1,-5],['sprite',6,76,1,4],['charged',19,80,0,-3],
           ['visa',87,30,0,5],['hackerrank',95,44,1,-5],['acko',76,44,0,4],['campa',89,59,1,-6],['kimi',75,63,1,6],['openai',94,76,1,-4],['swiggy',81,80,0,5]];
-$('#orbits').innerHTML=OK.map(([k,x,y,far,r],i)=>`<div class="orbit ${far?'far':''}" style="--x:${x}%;--y:${y}%;transition-delay:${.9+i*.05}s"><div class="px" data-d="${.5+(i%4)*.22}"><div class="in" style="--t:${4+(i%5)*.6}s;--dl:-${i*.7}s">${plate(k,0,`--r:${r}deg`)}</div></div></div>`).join('');
+/* hero badges: brand colour background, logo on top */
+const HB={cocacola:['#E41E2B','w','cocacola.png',.4],netflix:['#000','i','netflix.png',.3],fanta:['#FF8A00','i','fanta.png',.74],thumsup:['#14306F','i','thumsup.png',.8],
+ allen:['#0B4EA2','w','allen.png',.3],sprite:['#00843D','w','sprite.png',.44],charged:['#111','i','charged.png',.84],visa:['#1A1F71','p','#fff',.92],
+ hackerrank:['#0E141E','p','#00EA64',.56],acko:['#4A2BC2','w','acko.png',.3],campa:['#D7182A','w','campa.png',.64],kimi:['#000','i','kimi.png',.9],
+ openai:['#000','p','#fff',.56],swiggy:['#FC8019','w','swiggy.png',.36]};
+const badge=(k,r)=>{const [bg,m,v,kk]=HB[k],n=B[k].n;const inner=m==='p'?`<svg viewBox="0 0 24 24"><path fill="${v}" d="${PATHS[B[k].p]}"/></svg>`:`<img class="${m==='w'?'wh':''}" src="${L+v}" alt="" decoding="async">`;
+ return `<span class="hb" title="${n}" style="background:${bg};--k:${kk};--r:${r}deg">${inner}</span>`};
+$('#orbits').innerHTML=OK.map(([k,x,y,far,r],i)=>`<div class="orbit ${far?'far':''}" style="--x:${x}%;--y:${y}%;transition-delay:${.9+i*.05}s"><div class="px" data-d="${.5+(i%4)*.22}"><div class="in" style="--t:${4+(i%5)*.6}s;--dl:-${i*.7}s">${badge(k,r)}</div></div></div>`).join('');
 let mx=0,my=0,raf=0;
 const pxs=$$('#orbits .px');
 function applyPx(){raf=0;pxs.forEach(o=>{const d=+o.dataset.d;o.style.transform=`translate(${mx*30*d}px,${my*22*d}px)`})}
@@ -697,7 +707,7 @@ me.complete?goReady():(me.addEventListener('load',goReady),setTimeout(goReady,15
 new IntersectionObserver(es=>{heroOn=es[0].isIntersecting}).observe($('#home'));
 /* fit portrait under the headline on any screen ratio (splash rises ~7.5% above the photo) */
 const heroEl=$('#home'),h1El=$('.hero h1'),pEl=$('#portrait');
-function fitHero(){const top=h1El.getBoundingClientRect().bottom-heroEl.getBoundingClientRect().top;const H=Math.min(780,innerWidth*1.3,(heroEl.clientHeight-top-18)/1.08);pEl.style.height=Math.max(280,H)+'px'}
+function fitHero(){const top=h1El.getBoundingClientRect().bottom-heroEl.getBoundingClientRect().top;const vh=heroEl.clientHeight;const H=Math.min(520,vh*.6,innerWidth*1.05,(vh-top-34)/1.09);pEl.style.height=Math.max(240,H)+'px'}
 fitHero();addEventListener('resize',fitHero,{passive:true});document.fonts&&document.fonts.ready.then(fitHero);
 
 /* pixel trail: draws only while there is something to fade */
