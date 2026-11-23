@@ -230,6 +230,7 @@ section{position:relative}
 .cvr .cl{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .cvr .cl .plate{--ph:30px}
 .cvr .cl .lg{width:30px;height:30px}
+.cvr .cl{flex-wrap:nowrap}
 .cvr .cl .more{font:600 11px/1 Tektur,sans-serif;color:var(--mut);letter-spacing:.06em;padding-left:4px}
 .card.cta-card{justify-content:center;align-items:flex-start;border-style:dashed;background:transparent;min-height:280px}
 .card.cta-card h4{font:700 clamp(26px,3vw,38px)/1.05 Tektur,sans-serif;text-transform:uppercase}
@@ -947,7 +948,7 @@ return {scene:k=>S[k]?render(S[k]()):'' ,keys:Object.keys(S)};
 
 const plates=(ks,max=7)=>ks.slice(0,max).map(k=>B[k].pl||B[k].plp?plate(k):tile(k)).join('')+(ks.length>max?`<span class="more">+${ks.length-max}</span>`:'');
 const PH={raahe:'A stage for every new artist',campaigns:'Creators × brands, end to end',deals:'From cold pitch to signed deal',under25:'Events that bring an app to life',qviq:'One tap, one new account',deepfield:'Listen to the internet, then ask it',nova:'Every workspace on one board',scout:'Find the right creator, faster',woops:'Catch the wrong-chat message',fest:'A festival run like a launch',ecell:'Launching student startups'};
-const cover=(id,tag,logos)=>`<div class="cvr"><div class="tg">${tag}</div><div class="cm"><b class="ph">${PH[id]||''}</b></div><div class="cl">${plates(logos||[],4)}</div>${VX.scene(id)}</div>`;
+const cover=(id,tag,logos)=>`<div class="cvr"><div class="tg">${tag}</div><div class="cm"><b class="ph">${PH[id]||''}</b></div><div class="cl">${plates(logos||[],3)}</div>${VX.scene(id)}</div>`;
 const W=[
  {id:'raahe',t:'Raahe',k:'raahe',live:1,sub:'Co-founder · artist community & live events',c:['founder','growth'],cv:['Founder','~₹30','L','revenue, bootstrapped in college. #1 open mic on Zomato District.',[]],jump:'#raahe'},
  {id:'campaigns',t:'Creator campaigns',k:'yaas',sub:'YAAS! Media · influencer marketing',c:['growth'],cv:['Influencer marketing','400','M+','views across creator-led campaigns for 15+ brands.',['cocacola','netflix','sprite','fanta','thumsup','charged','campa','acko','allen','hackerrank','aspora','vi','nothing','dietcoke']],
