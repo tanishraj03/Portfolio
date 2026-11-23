@@ -75,7 +75,9 @@ img{display:block;max-width:100%}
 .scroll-cue svg{animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(4px)}}
 .hero .fade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--bg) 94%);z-index:4;pointer-events:none}
-@media(max-width:760px){.orbit.far{display:none}.hb{--ph:40px}}
+@media(max-width:760px){.hb{--ph:40px}}
+@media(max-width:600px){.hero h1{font-size:min(9.2vw,44px)}}
+.hero.tight .orbit.hide{display:none}
 @media(max-aspect-ratio:3/4){.hero{max-height:none}}
 
 /* logo tiles (square) */
@@ -691,10 +693,10 @@ setInterval(()=>{if(heroOn&&!document.hidden){wi=(wi+1)%words.length;scramble(wo
 const OK=[['cocacola',13,30,0,-6],['netflix',5,44,1,5],['fanta',23,44,0,-4],['thumsup',11,59,1,6],['allen',25,62,1,-5],['sprite',6,76,1,4],['charged',19,80,0,-3],
           ['visa',87,30,0,5],['hackerrank',95,44,1,-5],['acko',76,44,0,4],['campa',89,59,1,-6],['kimi',75,63,1,6],['openai',94,76,1,-4],['swiggy',81,80,0,5]];
 /* hero badges: brand colour background, logo on top */
-const HB={cocacola:['#E41E2B','w','cocacola.png',.4],netflix:['#000','i','netflix.png',.3],fanta:['#FF8A00','i','fanta.png',.74],thumsup:['#14306F','i','thumsup.png',.8],
- allen:['#0B4EA2','w','allen.png',.3],sprite:['#00843D','w','sprite.png',.44],charged:['#111','i','charged.png',.84],visa:['#1A1F71','p','#fff',.92],
- hackerrank:['#0E141E','p','#00EA64',.56],acko:['#4A2BC2','w','acko.png',.3],campa:['#D7182A','w','campa.png',.64],kimi:['#000','i','kimi.png',.9],
- openai:['#000','p','#fff',.56],swiggy:['#FC8019','w','swiggy.png',.36]};
+const HB={cocacola:['#E41E2B','w','cocacola.png',.4],netflix:['#000','i','netflix.png',.36],fanta:['#FF8A00','i','fanta.png',.74],thumsup:['#14306F','i','thumsup.png',.8],
+ allen:['#0B4EA2','w','allen.png',.36],sprite:['#00843D','w','sprite.png',.44],charged:['#111','i','charged.png',.84],visa:['#1A1F71','p','#fff',.92],
+ hackerrank:['#0E141E','p','#00EA64',.64],acko:['#4A2BC2','w','acko.png',.36],campa:['#D7182A','w','campa.png',.78],kimi:['#000','i','kimi.png',.9],
+ openai:['#000','p','#fff',.56],swiggy:['#FC8019','w','swiggy.png',.42]};
 const badge=(k,r)=>{const [bg,m,v,kk]=HB[k],n=B[k].n;const inner=m==='p'?`<svg viewBox="0 0 24 24"><path fill="${v}" d="${PATHS[B[k].p]}"/></svg>`:`<img class="${m==='w'?'wh':''}" src="${L+v}" alt="" decoding="async">`;
  return `<span class="hb" title="${n}" style="background:${bg};--k:${kk};--r:${r}deg">${inner}</span>`};
 $('#orbits').innerHTML=OK.map(([k,x,y,far,r],i)=>`<div class="orbit ${far?'far':''}" style="--x:${x}%;--y:${y}%;transition-delay:${.9+i*.05}s"><div class="px" data-d="${.5+(i%4)*.22}"><div class="in" style="--t:${4+(i%5)*.6}s;--dl:-${i*.7}s">${badge(k,r)}</div></div></div>`).join('');
@@ -708,7 +710,18 @@ new IntersectionObserver(es=>{heroOn=es[0].isIntersecting}).observe($('#home'));
 /* fit portrait under the headline on any screen ratio (splash rises ~7.5% above the photo) */
 const heroEl=$('#home'),h1El=$('.hero h1'),pEl=$('#portrait');
 function fitHero(){const top=h1El.getBoundingClientRect().bottom-heroEl.getBoundingClientRect().top;const vh=heroEl.clientHeight;const H=Math.min(520,vh*.6,innerWidth*1.05,(vh-top-34)/1.09);pEl.style.height=Math.max(240,H)+'px'}
-fitHero();addEventListener('resize',fitHero,{passive:true});document.fonts&&document.fonts.ready.then(fitHero);
+/* when the splash leaves no room at the sides, line the badges up between the headline and the splash */
+function layoutOrbits(){const H=parseFloat(pEl.style.height),hr=heroEl.getBoundingClientRect(),W=innerWidth;
+  const h1b=h1El.getBoundingClientRect().bottom-hr.top,splashTop=heroEl.clientHeight-H*1.075;
+  const tight=W/2-0.6*H<170;heroEl.classList.toggle('tight',tight);const os=$$('#orbits .orbit');
+  if(!tight){os.forEach((o,i)=>{o.classList.remove('hide');o.style.left='';o.style.top=''});return}
+  const ph=W<=760?40:54,free=splashTop-h1b,rows=free>ph*2+46?2:1,per=Math.max(3,Math.min(6,Math.floor((W-24)/(ph*2.7))));
+  let idx=0;const order=[0,7,2,9,1,8,3,10,5,12,4,11,6,13];
+  os.forEach(o=>o.classList.add('hide'));
+  for(let r=0;r<rows;r++){const n=r?per-1:per,y=h1b+free*(rows===2?(r?.7:.3):.5);
+    for(let c=0;c<n;c++){const o=os[order[idx++]];if(!o)break;o.classList.remove('hide');o.style.left=(W*(c+.5+(r?.5:0))/per)+'px';o.style.top=y+'px'}}}
+function fitAll(){fitHero();layoutOrbits()}
+fitAll();addEventListener('resize',fitAll,{passive:true});document.fonts&&document.fonts.ready.then(fitAll);
 
 /* pixel trail: draws only while there is something to fade */
 {const cv=$('#trail'),cx=cv.getContext('2d'),cells=new Map(),CS=70;let running=false;
