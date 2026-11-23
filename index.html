@@ -81,7 +81,8 @@ img{display:block;max-width:100%}
 .hb img.wh{filter:brightness(0) invert(1)}
 .hb svg{height:calc(var(--ph)*var(--k));width:auto}
 @keyframes bob{from{translate:0 -6px}to{translate:0 7px}}
-.scroll-cue{position:absolute;z-index:5;bottom:18px;left:50%;transform:translateX(-50%);font-size:14px;color:#fff;opacity:.85;text-decoration:none;display:flex;gap:6px;align-items:center}
+.scroll-cue{position:absolute;z-index:5;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);font:600 clamp(16px,1.2vw,19px)/1 Tektur,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#fff;opacity:.92;text-decoration:none;display:flex;gap:8px;align-items:center}
+.scroll-cue svg{width:18px;height:18px}
 .scroll-cue svg{animation:nudge 1.6s ease-in-out infinite}
 @keyframes nudge{50%{transform:translateY(4px)}}
 .hero .fade{position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--bg) 94%);z-index:4;pointer-events:none}
