@@ -37,7 +37,7 @@ img{display:block;max-width:100%}
 #prog{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--red);z-index:60;transform-origin:0 50%;transform:scaleX(0)}
 
 /* nav */
-.nav{position:fixed;top:max(14px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:6px;align-items:center}
+.nav{position:fixed;top:max(14px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:6px;align-items:center;width:max-content;max-width:calc(100vw - 16px)}
 .nav .seg{display:flex;padding:4px;background:rgba(20,20,20,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08)}
 .nav button,.nav a{all:unset;cursor:pointer;width:62px;height:40px;display:grid;place-items:center;color:#e8e5de;transition:background .25s;position:relative}
 .nav .seg>*.on{background:rgba(255,255,255,.14)}
@@ -45,7 +45,7 @@ img{display:block;max-width:100%}
 .nav [data-tip]::after{content:attr(data-tip);position:absolute;top:calc(100% + 12px);left:50%;transform:translate(-50%,-4px);background:#111;color:#fff;font:600 11px/1 Tektur,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:7px 9px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
 .nav [data-tip]:hover::after,.nav [data-tip]:focus-visible::after{opacity:1;transform:translate(-50%,0)}
 .nav svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.nav .talk{all:unset;cursor:pointer;width:auto;display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 18px;background:#F2EADB;color:#111;font:700 13px/1 Tektur,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(0,0,0,.6);transition:background .25s,color .25s,transform .25s}
+.nav .talk{all:unset;cursor:pointer;width:auto;flex:none;display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 18px;background:#F2EADB;color:#111;font:700 13px/1 Tektur,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(0,0,0,.6);transition:background .25s,color .25s,transform .25s}
 .nav .talk svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .nav .talk:hover{background:#111;color:#fff;transform:translateY(-2px)}
 .nav .talk.on{background:#111;color:#fff}
