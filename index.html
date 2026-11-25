@@ -674,7 +674,7 @@ const B={
  lenovo:{n:'Lenovo',pl:'lenovo.png',k:.5},
  swiggy:{n:'Swiggy',img:L+'swiggy-mark.png',bg:'#fff',pad:'12%',pl:'swiggy.png',k:.5},
  sprite:{n:'Sprite',pl:'sprite.png',k:.62},
- cleartrip:{n:'Cleartrip',pl:'cleartrip.png',k:.42},
+ cleartrip:{n:'Cleartrip',img:L+'cleartrip-mark.png',bg:'#fff',pad:'14%',pl:'cleartrip.png',k:.42},
  iitb:{n:'IIT Bombay',img:'https://upload.wikimedia.org/wikipedia/en/thumb/1/1d/Indian_Institute_of_Technology_Bombay_Logo.svg/120px-Indian_Institute_of_Technology_Bombay_Logo.svg.png',bg:'#fff',pad:'7%'},
  dietcoke:{n:'Diet Coke',pl:'dietcoke.png',k:.62},
  fanta:{n:'Fanta',pl:'fanta.png',k:.74},
@@ -803,7 +803,7 @@ fitAll();addEventListener('resize',fitAll,{passive:true});document.fonts&&docume
 
 
 /* ---------- currently ---------- */
-$('#nowText').innerHTML=`I'm running creator-led campaigns at ${chip('yaas')} for ${chip('cocacola')}, ${chip('netflix')}, ${chip('acko')} and more, closing brand deals with ${chip('openai')}, ${chip('kimi')} and ${chip('emergent')} among others, and building the internal tools our marketing team runs on. Before that, I helped grow the ${chip('u25')} app to 50,000 daily users and co-founded ${chip('raahe')}, which hit ~₹30L in revenue while I was still in college.`;
+$('#nowText').innerHTML=`I'm running creator-led campaigns at ${chip('yaas')} for ${chip('cocacola')}, ${chip('cleartrip')}, ${chip('acko')} and more, closing brand deals with ${chip('openai')}, ${chip('kimi')} and ${chip('emergent')} among others, and building the internal tools our marketing team runs on. Before that, I helped grow the ${chip('u25')} app to 50,000 daily users and co-founded ${chip('raahe')}, which hit ~₹30L in revenue while I was still in college.`;
 const J=[['Growth & marketing work','#work','growth'],['Tools I built at YAAS!','#tools'],["Everything I've built",'#work','builds'],['The founder story','#raahe'],['Experience','#journey']];
 $('#jump').innerHTML=J.map(([l,h,f])=>`<a class="btn" href="${h}" ${f?`data-f="${f}"`:''}>${l} <span class="ar">→</span></a>`).join('');
 $$('#jump a[data-f]').forEach(a=>a.addEventListener('click',()=>setFilter(a.dataset.f)));
